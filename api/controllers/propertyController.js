@@ -1,73 +1,73 @@
 import dataBasePool from "../model/db.js";
 
-const postAProperty = async (req, res) => {
-  const { property_name, purchase_price, investors, pictures, closing_date } =
-    req.body;
-
-  const client = await dataBasePool.connect();
-
-  try {
-    await client.query("BEGIN");
-
-    const propertyResult = await client.query(`
-  INSERT INTO properties(property_name, purchase_price, secure_url, closing_date )
-  VALUES($1, $2, $3, $4) RETURNING id`, [
-      property_name,
-      purchase_price,
-      pictures,
-      closing_date,
-    ]);
-
-
-
-    for (const entry of investors) {
-      const {
-        investor_name,
-        amount_invested,
-        preferred_return
-
-
-      } = entry;
-
-
-      const investorResult = await client.query(
-        `INSERT INTO investors (name)
-            VALUES ($1)
-            RETURNING id`, [investor_name]
-      )
-
-
-      const propertyID = propertyResult.rows[0].id;
-
-      const investorID = investorResult.rows[0].id;
-
-      await client.query(
-        `INSERT INTO investments (
-         investor_id,
-          property_id,
-          invested_amount,
-          perf_return)  VALUES ($1, $2, $3, $4)`, [
-        investorID,
-        propertyID,
-        amount_invested,
-        preferred_return,
-      ]
-      )
-    }
-
-    await client.query("COMMIT");
-
-    res.status(201).json({
-      message: "Property created successfully",
-
-    });
-  } catch (error) {
-    console.error(error);
-      res.status(500).json({ error: "Server error" });
-  } finally {
-    client.release();
-  }
-};
+//const postAProperty = async (req, res) => {
+//  const { property_name, purchase_price, investors, pictures, closing_date } =
+//    req.body;
+//
+//  const client = await dataBasePool.connect();
+//
+//  try {
+//    await client.query("BEGIN");
+//
+//    const propertyResult = await client.query(`
+//  INSERT INTO properties(property_name, purchase_price, secure_url, closing_date )
+//  VALUES($1, $2, $3, $4) RETURNING id`, [
+//      property_name,
+//      purchase_price,
+//      pictures,
+//      closing_date,
+//    ]);
+//
+//
+//
+//    for (const entry of investors) {
+//      const {
+//        investor_name,
+//        amount_invested,
+//        preferred_return
+//
+//
+//      } = entry;
+//
+//
+//      const investorResult = await client.query(
+//        `INSERT INTO investors (name)
+//            VALUES ($1)
+//            RETURNING id`, [investor_name]
+//      )
+//
+//
+//      const propertyID = propertyResult.rows[0].id;
+//
+//      const investorID = investorResult.rows[0].id;
+//
+//      await client.query(
+//        `INSERT INTO investments (
+//         investor_id,
+//          property_id,
+//          invested_amount,
+//          perf_return)  VALUES ($1, $2, $3, $4)`, [
+//        investorID,
+//        propertyID,
+//        amount_invested,
+//        preferred_return,
+//      ]
+//      )
+//    }
+//
+//    await client.query("COMMIT");
+//
+//    res.status(201).json({
+//      message: "Property created successfully",
+//
+//    });
+//  } catch (error) {
+//    console.error(error);
+//      res.status(500).json({ error: "Server error" });
+//  } finally {
+//    client.release();
+//  }
+//};
 
 
 const getAllProperties = async (req, res) => {
