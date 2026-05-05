@@ -93,7 +93,7 @@ const getAllProperties = async (req, res) => {
 
 console.log("QUERY DONE");
 
-  return await res.json(result.rows);
+  return res.json(result.rows);
 };
 
 

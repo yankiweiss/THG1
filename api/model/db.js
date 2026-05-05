@@ -7,10 +7,9 @@ dotenv.config();
 
 const dataBasePool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: true,
-  max: 1, // critical
-  idleTimeoutMillis: 0,
-  connectionTimeoutMillis: 10000,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 
