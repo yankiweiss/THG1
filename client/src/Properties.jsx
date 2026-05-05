@@ -21,7 +21,7 @@ function Properties() {
 
 const getAllProperties = async () => {
   const response = await fetch(
-    "https://thg-1.vercel.app//api/properties"
+    "https://thg-1.vercel.app/api/properties"
   );
 
   if (!response.ok) {
