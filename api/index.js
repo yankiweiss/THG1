@@ -11,8 +11,6 @@ import investmentRouter from './routes/investments.js';
 dotenv.config();
 const app = express();
 
-const PORT = 3500;
-
 app.use(cors());
 app.use(express.json());
 
@@ -21,8 +19,6 @@ app.use('/api/event', eventRouter);
 app.use('/api/investor', investorRouter);
 app.use('/api/investment', investmentRouter);
 
-app.listen(PORT, () => {
-  console.log("Server running on http://localhost:" + PORT);
-});
+export default serverless(app);
 
 
