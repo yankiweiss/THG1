@@ -3,7 +3,7 @@ import serverless from 'serverless-http';
 import dotenv from 'dotenv';
 
 import cors from 'cors';
-import router from './routes/property.js';
+import router from './property.js';
 import eventRouter from './routes/event.js';
 import investorRouter from './routes/investor.js';
 import investmentRouter from './routes/investments.js';
