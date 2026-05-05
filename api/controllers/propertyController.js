@@ -78,7 +78,13 @@ const getAllProperties = async (req, res) => {
 
   // will need to get for each property the investor associate data.
 
-  const result = await dataBasePool.query(getAllPropertiesDB);
+  try {
+    const result = await dataBasePool.query(getAllPropertiesDB);
+  } catch (error) {
+    console.error(error);
+  return res.status(500).json({ error: "Server error" });
+    
+  }
 
 
 console.log("QUERY DONE");
