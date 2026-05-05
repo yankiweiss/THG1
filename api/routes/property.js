@@ -3,7 +3,7 @@ import { deleteProperty, getAllProperties, getPropertyById,  updatePropertyField
 const router = express.Router();
 
 
-router.post('/addDeal', postAProperty)
+//router.post('/addDeal', postAProperty)
 router.get('/:id', getPropertyById)
 router.get('/', getAllProperties)
 router.delete('/:id', deleteProperty)
