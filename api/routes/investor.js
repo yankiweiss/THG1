@@ -1,5 +1,5 @@
 import express from 'express';
-import { addingInvestorToProp, getInvestorByID, updateInvestorField } from '../../controllers/investorController.js';
+import { addingInvestorToProp, getInvestorByID, updateInvestorField } from '../controllers/investorController.js';
 
 const investorRouter = express.Router();
 

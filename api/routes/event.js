@@ -1,5 +1,5 @@
 import express from 'express';
-import postAEvent from '../../controllers/eventController.js';
+import postAEvent from '../controllers/eventController.js';
 const eventRouter = express.Router();
 
 
