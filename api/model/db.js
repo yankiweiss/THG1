@@ -1,17 +1,21 @@
 import { Pool } from "pg";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 dotenv.config();
 
-
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  console.error("Missing DATABASE_URL environment variable");
+}
 
 const dataBasePool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString,
   ssl: {
     rejectUnauthorized: false,
   },
+  connectionTimeoutMillis: 10000,
+  idleTimeoutMillis: 10000,
 });
-
 
 //import dotenv from 'dotenv';
 //
