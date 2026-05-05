@@ -74,9 +74,14 @@ const getAllProperties = async (req, res) => {
   const getAllPropertiesDB = `
     SELECT * FROM properties`;
 
+    console.log('query started')
+
   // will need to get for each property the investor associate data.
 
   const result = await dataBasePool.query(getAllPropertiesDB);
+
+
+console.log("QUERY DONE");
 
   res.json(result.rows);
 };
