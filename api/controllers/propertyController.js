@@ -76,10 +76,12 @@ const getAllProperties = async (req, res) => {
 
     console.log('query started')
 
+    let result;
+
   // will need to get for each property the investor associate data.
 
   try {
-    const result = await dataBasePool.query(getAllPropertiesDB);
+    result = await dataBasePool.query(getAllPropertiesDB);
   } catch (error) {
     console.error(error);
   return res.status(500).json({ error: "Server error" });
@@ -89,7 +91,7 @@ const getAllProperties = async (req, res) => {
 
 console.log("QUERY DONE");
 
-  res.json(result.rows);
+  return res.json(result.rows);
 };
 
 

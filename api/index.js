@@ -3,7 +3,7 @@ import serverless from 'serverless-http';
 import dotenv from 'dotenv';
 
 import cors from 'cors';
-import router from './property.js';
+import router from './routes/property.js';
 import eventRouter from './routes/event.js';
 import investorRouter from './routes/investor.js';
 import investmentRouter from './routes/investments.js';
@@ -19,6 +19,10 @@ app.use('/api/event', eventRouter);
 app.use('/api/investor', investorRouter);
 app.use('/api/investment', investmentRouter);
 
-export default serverless(app);
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.log("Server running on http://localhost:" + PORT);
+});
 
 
