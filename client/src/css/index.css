@@ -1,0 +1,769 @@
+body {
+  background: transparent linear-gradient(90deg, #1642891a 0%, #1b52ab33 100%)
+    0% 0% no-repeat padding-box;
+  font-family:
+    "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
+    Arial, "Lucida Grande", sans-serif;
+}
+
+.fw600 {
+  font-weight: 600;
+}
+
+button{
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+/* will need to create a new flex for the navbar and the rest of the website */
+.app {
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 12%;
+  width: 12%;
+  min-height: 100vh;
+  background: #e2eeff;
+  margin: 15px;
+  border-radius: 19px;
+  display: flex;
+  justify-content: start;
+  gap: 75px;
+  align-items: center;
+  flex-direction: column;
+  box-shadow:
+    1px 1px 20px 1px #1b3d777e,
+    -1px 1px 2px 1px #1b3d7770;
+}
+
+/*.logo_company_name {
+  margin-top: 2em;
+}*/
+
+.icon {
+  box-sizing: content-box;
+  width: 56%;
+  display: flex;
+  margin-bottom: 0.7rem;
+  padding: 0.4rem 3rem;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  color: #2570c0;
+  box-shadow: 2px 2px 2px 1px #1b3c7759;
+  align-items: center;
+  gap: 20px;
+  font-weight: 600;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+}
+
+.icon:hover {
+  background-color: #e6ecff;
+}
+
+.log {
+  display: flex;
+  justify-content: center;
+}
+
+.right-side {
+  width: 80vw;
+  margin-top: 50px;
+  margin-left: 18vw;
+  min-height: 100vh;
+ 
+}
+
+.search input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.search input::placeholder {
+  color: #aabfe2;
+  
+}
+
+.search {
+  max-width: 350px;
+  padding: 0.3rem;
+  border-radius: 15px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 2px 1px rgba(81, 102, 109, 0.473);
+  transform-origin: left;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
+}
+
+.search:hover {
+  transform: scaleX(150%);
+}
+
+.prop_section {
+  margin-top: 50px;
+}
+
+.prop_wrapper {
+  width: 95%;
+  max-width: 95%;
+  overflow: hidden;
+  background-color: white;
+  max-height: 165px;
+  height: 165px;
+  display: flex;
+  border-radius: 5px;
+  box-shadow:
+    5px 3px 10px 1px #1b3c77,
+    -1px 1px 2px 1px #1b3c77;
+  opacity: 1;
+  box-sizing: border-box;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
+  min-height: 150px;
+}
+
+.prop_wrapper:hover {
+  transform: scaleX(102%);
+}
+
+.column-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.investor-section {
+  background-color: #e6ecff;
+  display: flex;
+  justify-content: space-between;
+  height: 30%;
+  align-items: center;
+  width: 100%;
+}
+.inv-details{
+  display: flex;
+  justify-content: start;
+}
+
+.delete{
+  margin-right: 50px;
+  cursor: pointer;
+  display: none;
+
+}
+
+.prop_wrapper:hover .delete{
+  display: block;
+}
+
+
+.info {
+  display: flex;
+}
+
+.property_flex {
+  display: flex;
+  height: 115px;
+  background-color: #f0f6ff;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.property_flex_item {
+  flex-basis: 500px;
+}
+
+.property_flex_item:nth-child(2) {
+  flex-grow: 2;
+}
+
+.flex-right {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+.fin-text {
+  color: #7f9dc9;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.fin-amount {
+  font-size: 29.32px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.financial-flex {
+  display: flex;
+  justify-content: end;
+  gap: 100px;
+  align-items: center;
+}
+
+.investors-flex {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.investors_name_flex {
+  display: flex;
+  gap: 35px;
+  justify-content: center;
+}
+
+.investor_name {
+  background-color: white;
+  padding: 3px 15px;
+  border-radius: 8px;
+  color: #2570c0;
+}
+
+.logOut {
+  position: absolute;
+  bottom: 75px;
+  width: 210px;
+  display: flex;
+  padding: 7px;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  color: rgb(0, 0, 19);
+  box-shadow: 2px 2px 2px 1px rgba(81, 102, 109, 0.473);
+}
+
+@media screen and (max-width: 1300px) {
+  .icon span {
+    display: none;
+  }
+
+  .icon {
+    padding: 15px;
+    max-width: 75%;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .icon span {
+    display: none;
+  }
+
+  .icon {
+    padding: 8px;
+  }
+
+  .prop_wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prop_wrapper img {
+    min-width: 95%;
+    flex-grow: 1;
+    height: auto;
+  }
+}
+
+.main-flex {
+  display: flex;
+  max-width: 100%;
+  width: 100%;
+  gap: 100px;
+ 
+  align-items: center;
+  flex-wrap: wrap;
+  height: 350px;
+}
+
+.property-content {
+  width: 600px;
+}
+
+.PD-in-sec {
+  width: 775px;
+  display: flex;
+  flex-direction: column;
+}
+
+.PD-in-sec-dt {
+  background-color: #f0f6ff;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  padding: 10px 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.investors_section {
+  background-color: #e6ecff;
+  padding: 10px 10px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+  flex-grow: 1;
+  margin: 5px;
+}
+
+.investors_section:hover .investor_details {
+  background-color: transparent;
+  margin: -10px -10px;
+  padding: 10px 10px;
+  border-radius: 8px;
+  padding-left: 55px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  cursor: pointer;
+}
+
+/*.investors_section:hover > :nth-child(1) ~ *{
+  
+  border-left: 1px solid  black;
+  border-top: 1px solid black;
+  padding: 3px;
+ cursor: pointer;
+ padding-left: 75px;
+
+}*/
+
+.item:nth-child(1) {
+  flex-grow: 2;
+  text-align: center;
+}
+
+.item:nth-child(4) {
+  text-align: center;
+}
+
+.investor_details {
+  display: flex;
+  gap: 25px;
+}
+
+.propertyDetail_flex {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+.propertyDetail_fin_flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.propertyDetail_fin_flex div {
+  width: 120px;
+  height: 65px;
+  background: #e6ecff 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.PropertyDetail-fin-text {
+  color: black;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.PropertyDetail-fin-value {
+  color: #2570c0;
+  font-weight: 700;
+}
+
+.add-investor-section {
+  margin-top: 50px;
+}
+
+.add-investor {
+  color: white;
+  background: #2570c0 0% 0% no-repeat padding-box;
+  opacity: 1;
+  width: 184px;
+  height: 45px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center
+  ;
+  gap: 10px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+}
+
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Investor Detail Page */
+
+.main_page {
+  margin-top: 50px;
+}
+
+.top-flex {
+  display: flex;
+  min-height: 146px;
+  height: 146px;
+  gap: 25px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.ID_investor_name {
+  max-width: 300px;
+  width: 100%;
+  background-color: #f0f6ff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+}
+
+.ID-investor-details {
+  background-color: #f0f6ff;
+  display: flex;
+  gap: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  justify-content: center;
+
+  min-width: 35vw;
+}
+
+.ID-text {
+  color: #7f9dc9;
+  padding: 15px;
+  background: #e6ecff 0% 0% no-repeat padding-box;
+  text-align: center;
+}
+
+.capital_breakdown {
+  max-width: 75vw;
+  width: 100%;
+  background: #f0f6ff;
+  height: 50vh;
+  margin-top: 75px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  padding-bottom: 50px;
+}
+
+.cb-top{
+  display: flex;
+  width: 100%;
+  padding: 25px;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 50px;
+  padding-right: 100px;
+}
+
+.capital_events_amount {
+  display: flex;
+  height: 85%;
+}
+
+.quarterly_breakdown {
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  border-radius: 6px;
+  width: 750px;
+  background: transparent linear-gradient(90deg, #1642891a 0%, #1b52ab33 100%)
+    0% 0% no-repeat padding-box;
+    
+}
+
+.event_table {
+  background-color: #f0f6ff;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  border-radius: 6px;
+  width: 35%;
+  overflow: auto;
+  min-height: 100%;
+}
+
+
+
+
+
+tr td
+ {
+  padding: 0.5rem 1rem;
+
+  width: auto;
+  
+}
+
+table{
+  border-collapse: collapse;
+}
+textarea{
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+tr:nth-child(even) {
+  background-color: #cae0ff;
+  /* or any other color */
+}
+
+
+
+tbody tr:hover {
+  background-color: rgb(236, 236, 236);
+  border-radius: 15px;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  padding: 1px;
+  /* Match this to your .event_table background */
+  background-color: #f0f6ff;
+  z-index: 100;
+  text-align: center;
+}
+
+table td {
+  font-weight: 600;
+}
+
+.add-event-form{
+ 
+ 
+  
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.add-form-container{
+  margin-top: 100px;
+   
+}
+
+.add_event_btns{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 25px;
+}
+.add_event_form_wrapper{
+  display: flex;
+  flex-direction: column;
+   width: 75vw;
+ padding: 25px;
+  height: auto;
+  background-color: #f0f6ff;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  margin-bottom: 150px;
+  border-radius: 8px;
+}
+
+/* need to see how to make the header should be sticky and only the tbody should be able to scroll */
+
+/* Add Deal Page */
+.top-content {
+  display: flex;
+  margin-top: 50px;
+
+  align-items: center;
+  flex-direction: row;
+  width: 65vw;
+  max-width: 65vw;
+  gap: 1rem;
+}
+
+.AD-item {
+  flex-grow: 0.1;
+}
+.AD-item:first-child {
+  flex-grow: 2;
+  display: flex;
+  align-items: start;
+}
+
+.deal-btn {
+  color: #2569c0;
+  font-weight: 600;
+  border-radius: 21px;
+  box-shadow: 0px 1px 7px #002b79b4;
+  border: none;
+  outline: none;
+  padding: 18px 33px;
+  display: flex;
+  align-items: center;
+}
+
+.deal-btn:focus {
+  background-color: #2569c0;
+  color: white;
+}
+
+.prop-info-image {
+  display: flex;
+  margin-top: 55px;
+ max-width: 65vw;
+  
+}
+
+.deal-input {
+  margin-bottom: 25px;
+  width: 341px;
+  max-width: 341px;
+  height: 47px;
+  background: #f7faff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 1px 7px #002b79b4;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+}
+.AD_investor_section {
+  background-color: #ffffff;
+  box-shadow: 0px 2px 15px #0d26537c;
+  min-height: 243px;
+  width: 69vw;
+  margin-top: 25px;
+  border-radius: 8px;
+  padding: 10px;
+}
+.investor_heading {
+  display: flex;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 7px #1b3c7759;
+
+  color: #2570c0;
+  gap: 20px;
+  align-items: center;
+  border-radius: 8px;
+ padding: 0px 25px;
+  justify-content: space-between;
+  
+ 
+}
+.investor_form {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 35px;
+  width: 65vw;
+  flex-wrap: wrap;
+}
+.upload_field {
+  border: 1px solid #2f80eb;
+  border-radius: 8px;
+  height: 114px;
+  width: 75%;
+  margin-bottom: 25px;
+  background: #F7FAFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 1px 7px #002B79B4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+.add-investor-btn{
+  border: 1.5px solid #2F80EB;
+  box-shadow: inset 0px 3px 6px #00000000, 0px 1px 7px #002B79B4;
+  border-radius: 8px;
+  color: #2569C0;
+  padding: 2px 10px;
+ 
+}
+.investor_heading-wording{
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.submitBtn{ 
+  
+  color: #2569c0;
+  font-weight: 600;
+  border-radius: 21px;
+  box-shadow: 0px 1px 7px #002b79b4;
+  border: none;
+  outline: none;
+  padding: 18px 33px;
+  display: flex;
+  align-items: center;
+ margin: 25px auto;
+ 
+
+}
+
+.submitBtn:focus {
+  background-color: #2569c0;
+  color: white;
+}
+
+.upload_field {
+  position: relative; /* Base for the absolute image */
+  width: 100%;
+  min-height: 150px;
+  overflow: hidden; /* Keeps the image inside the borders */
+}
+
+.preview-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Prevents stretching */
+  display: none;    /* Hidden until an image is picked */
+  z-index: 100;      /* Places it above the text and icon */
+  pointer-events: none; /* Allows you to still click "through" it if needed */
+}
+.loading{
+  color: rgb(1, 1, 68);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  font-size: 2rem;
+}
+
+/* test page */
+
+

@@ -1,0 +1,37 @@
+:root {
+  --primary-blue: #2563eb;     /* main actions */
+  --light-blue: #e8f0fe;       /* section headers */
+  --dark-blue: #1e3a8a;        /* headings */
+  --border-gray: #e5e7eb;      /* borders */
+  --bg-light: #f9fafb;         /* page background */
+  --text-dark: #111827;        /* primary text */
+}
+
+.outside-wrap{
+    background-color: var(--bg-light);
+}
+.main-header{
+    color: var(--dark-blue);
+    text-align: center;
+}
+.header-text{
+    color: var(--dark-blue);
+    background-color: var(--light-blue);
+    padding: 5px;
+}
+.from-content{
+    background-color: var(--bg-light);
+    margin: auto;
+    border-radius: 25px;
+    border: 1px rgb(211, 211, 211) solid;
+    padding: 50px;
+}
+.add-investor{
+    width: 150px;
+    background-color: var(--primary-blue);
+    padding: 3px;
+    border-radius: 8px;
+    color: white;
+    color: rgb(192, 192, 192);
+
+}
