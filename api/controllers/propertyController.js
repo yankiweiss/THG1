@@ -76,6 +76,8 @@ const getAllProperties = async (req, res) => {
 
     console.log('query started')
 
+    console.log(process.env.DATABASE_URL);
+
     let result;
 
   // will need to get for each property the investor associate data.

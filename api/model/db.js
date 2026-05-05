@@ -1,14 +1,17 @@
 import { Pool } from "pg";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+
 
 const dataBasePool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
-  max: 1,              // IMPORTANT for serverless
+  max: 1, // critical
   idleTimeoutMillis: 0,
   connectionTimeoutMillis: 10000,
 });
-
-export default dataBasePool;
 
 
 //import dotenv from 'dotenv';
