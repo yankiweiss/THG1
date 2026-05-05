@@ -3,10 +3,10 @@ import serverless from 'serverless-http';
 import dotenv from 'dotenv';
 
 import cors from 'cors';
-import router from './routes/api/property.js';
-import eventRouter from './routes/api/event.js';
-import investorRouter from './routes/api/investor.js';
-import investmentRouter from './routes/api/investments.js';
+import router from '../server/routes/api/property.js';
+import eventRouter from '../server/routes/api/event.js';
+import investorRouter from '../server/routes/api/investments.js';
+import investmentRouter from '../server/routes/api/investments.js';
 
 dotenv.config();
 const app = express();
