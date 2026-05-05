@@ -200,7 +200,7 @@ const updatePropertyField = async (req, res) => {
 
 
 export {
-  postAProperty,
+  //postAProperty,
   getAllProperties,
   getPropertyById,
   deleteProperty,
