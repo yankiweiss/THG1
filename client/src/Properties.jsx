@@ -9,78 +9,71 @@ import Loading from "./Loading";
 
 function Properties() {
   const [propertyData, setPropertyData] = useState([]);
-  const [loading, setLoading] = useState(false)
-  const [search, setSearch] = useState('');
-  const [searchData, setSearchData] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [searchData, setSearchData] = useState("");
 
+  //  const baseUrl = import.meta.env.VITE_BASE_URL;
+  //
+  //  console.log(baseUrl);
 
+  const getAllProperties = async () => {
+    const response = await fetch("/api/properties");
 
-//  const baseUrl = import.meta.env.VITE_BASE_URL;
-//
-//  console.log(baseUrl);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("API ERROR:", errorText);
+      return;
+    }
 
-const getAllProperties = async () => {
-  const response = await fetch(
-    "https://thg-1.vercel.app/api/properties"
-  );
+    const data = await response.json();
+    setPropertyData(data);
+    setLoading(true);
+  };
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error("API ERROR:", errorText);
-    return;
-  }
-
-  const data = await response.json();
-  setPropertyData(data);
-  setLoading(true);
-};
-
-//  const getAllProperties = async () => {
-//    const response = await fetch(`https://thg-seven.vercel.app/api/properties`);
-//    const data = await response.json();
-//    setPropertyData(data)
-//    setLoading(true)
-//  };
-//
+  //  const getAllProperties = async () => {
+  //    const response = await fetch(`https://thg-seven.vercel.app/api/properties`);
+  //    const data = await response.json();
+  //    setPropertyData(data)
+  //    setLoading(true)
+  //  };
+  //
   useEffect(() => {
     getAllProperties();
   }, []);
 
-  const searchDataInput = propertyData?.filter((property) => property.property_name.toLowerCase().includes(search.toLowerCase()));
+  const searchDataInput = propertyData?.filter((property) =>
+    property.property_name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   const formatNumbers = (number) => {
+    const usdFormatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
 
-    const usdFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
-
-    return usdFormatter.format(number)
-
-  }
-
+    return usdFormatter.format(number);
+  };
 
   const handlePropertyDelete = () => {
-    const confirmed = confirm('this feature is currently not working, working on it');
+    const confirmed = confirm(
+      "this feature is currently not working, working on it",
+    );
 
     if (confirmed) {
-      console.log('deleting this property')
+      console.log("deleting this property");
     }
 
-    fetch('')
-
-
-  }
-
-
+    fetch("");
+  };
 
   return (
     <>
-
       <div className="page-wrapper">
         {/* now we need tooltips for each one of them */}
 
-
-        {loading ?
+        {loading ? (
           <div className="right-side">
-
             <h4
               style={{
                 color: "#6780B2",
@@ -108,13 +101,16 @@ const getAllProperties = async () => {
 
             <div className="search">
               <AiOutlineSearch color="#AABFE2" fontSize={"25px"} />
-              <input placeholder="Search Properties" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+              <input
+                placeholder="Search Properties"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              ></input>
             </div>
 
             <section>
               {searchDataInput.map((property) => (
                 <div className="prop_section">
-
                   {" "}
                   <div className="prop_wrapper">
                     <img
@@ -149,15 +145,15 @@ const getAllProperties = async () => {
                               <h6 className="fin-text">CLOSING DATE</h6>
 
                               <h6 className="fin-amount">
-                                {(format(parseISO(property?.closing_date), "MM/dd/yyyy"))}
+                                {format(
+                                  parseISO(property?.closing_date),
+                                  "MM/dd/yyyy",
+                                )}
                               </h6>
-
                             </div>
-
                           </div>
                         </div>
                       </Link>
-
 
                       <div className="investor-section">
                         <div className="inv-details">
@@ -177,17 +173,23 @@ const getAllProperties = async () => {
                           </div>
                         </div>
                         <div>
-                          <RiDeleteBin5Line className="delete" color="red" fontSize={'1.5rem'} onClick={handlePropertyDelete} />
+                          <RiDeleteBin5Line
+                            className="delete"
+                            color="red"
+                            fontSize={"1.5rem"}
+                            onClick={handlePropertyDelete}
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
-
                 </div>
               ))}
             </section>
-
-          </div> : <Loading />}
+          </div>
+        ) : (
+          <Loading />
+        )}
       </div>
     </>
   );

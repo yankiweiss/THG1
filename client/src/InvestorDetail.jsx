@@ -8,7 +8,7 @@ import {
   expectedQuarterReturns,
   investmentToDate,
   investmentActualReturn,
-  expectedReturnAmount
+  expectedReturnAmount,
 } from "./utils/CalculatingReturns.js";
 import { format, parseISO } from "date-fns";
 import Loading from "./Loading.jsx";
@@ -23,10 +23,9 @@ function InvestorDetail() {
   const targetRef = useRef(null);
   const [ddSelectedYear, setddSelectedYear] = useState(year);
   const [loading, setLoading] = useState(false);
-  
 
   const events = investorData?.events || [];
- 
+
   const initialInvestment = Number(investorData?.investments?.invested_amount);
   const closingDate = investorData?.property?.closing_date;
 
@@ -35,9 +34,7 @@ function InvestorDetail() {
   let { propertyId, investorId } = useParams();
 
   const fetchProperty = async () => {
-    await fetch(
-      `https://thg-seven.vercel.app/api/investor/${propertyId}/${investorId}`,
-    )
+    await fetch(`/api/investor/${propertyId}/${investorId}`)
       .then((res) => res.json())
       .then((data) => setInvestorData(data));
     setLoading(true);
@@ -53,15 +50,15 @@ function InvestorDetail() {
     }
   }, [addEvent]);
 
- const expectedData = closingDate
-  ? expectedQuarterReturns(
-      ddSelectedYear,
-      initialInvestment,
-      events,
-      perfReturn,
-      closingDate
-    )
-  : { chartJS: [], totalExpected: 0 };
+  const expectedData = closingDate
+    ? expectedQuarterReturns(
+        ddSelectedYear,
+        initialInvestment,
+        events,
+        perfReturn,
+        closingDate,
+      )
+    : { chartJS: [], totalExpected: 0 };
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
@@ -75,7 +72,7 @@ function InvestorDetail() {
       investorId,
     };
 
-    const res = await fetch("https://thg-seven.vercel.app/api/event", {
+    const res = await fetch("/api/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -144,18 +141,13 @@ function InvestorDetail() {
   };
 
   const yearsY = events.map((event) => {
-    const date = event.event_date ??
-    event.to_date ??
-    event.from_date;
+    const date = event.event_date ?? event.to_date ?? event.from_date;
 
-    return new Date(date).getFullYear()
-    
-  })
+    return new Date(date).getFullYear();
+  });
 
   const years = new Set(yearsY);
 
-  
- 
   const formatNumbers = (number) => {
     const usdFormatter = new Intl.NumberFormat("en-US", {
       style: "currency",

@@ -4,12 +4,12 @@ import { MdOutlineUploadFile } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { format, parseISO, isValid } from 'date-fns';
+import { format, parseISO, isValid } from "date-fns";
 
 function AddDeal() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [CoSponsors, setCoSponsors] = useState(false);
-   const [selectedDate, setSelectedDate]=  useState( new Date())
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [Investor, setInvestor] = useState([
     { investor_name: "", amount_invested: "", preferred_return: "" },
   ]);
@@ -51,17 +51,14 @@ function AddDeal() {
   };
 
   const handleDateChange = (e) => {
-
     const dateString = e.target.value;
 
-   
     const newDate = parseISO(dateString);
 
-    if(isValid(newDate)){
-      setSelectedDate(newDate)
+    if (isValid(newDate)) {
+      setSelectedDate(newDate);
     }
-  }
-
+  };
 
   const submitData = async (e) => {
     e.preventDefault();
@@ -93,8 +90,6 @@ function AddDeal() {
       uploadedPicUrl = await uploadToCloudinary(picFile);
     }
 
-    
-
     const payload = {
       ...allFormData,
       investors: Investor,
@@ -103,7 +98,7 @@ function AddDeal() {
 
     console.log(payload);
     try {
-      await fetch("https://thg-seven.vercel.app/api/properties/addDeal", {
+      await fetch("/api/properties/addDeal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -116,10 +111,10 @@ function AddDeal() {
       { investor_name: "", amount_invested: "", preferred_return: "" },
     ]);
 
-    imageHolder.current.src = ''
+    imageHolder.current.src = "";
 
     formRef.current.reset();
-    navigate('/')
+    navigate("/");
   };
 
   return (
@@ -201,7 +196,7 @@ function AddDeal() {
               </label>
               <input
                 type="date"
-                value={format(selectedDate, 'yyyy-MM-dd')}
+                value={format(selectedDate, "yyyy-MM-dd")}
                 name="closing_date"
                 id="closing_date"
                 className="deal-input"
@@ -239,7 +234,7 @@ function AddDeal() {
                 <div className="column-flex">
                   <h5 className="fw600"> Click to upload images</h5>
                   <h6 style={{ color: "#7F9DC9" }}>
-                   Used for property identity
+                    Used for property identity
                   </h6>
                 </div>
               </div>
@@ -261,8 +256,7 @@ function AddDeal() {
                 <div className="column-flex">
                   <h5 className="fw600">Click to upload documents</h5>
                   <h6 style={{ color: "#7F9DC9" }}>
-                     Operating agreement, PPM, contracts
-                    
+                    Operating agreement, PPM, contracts
                   </h6>
                 </div>
               </div>
@@ -356,7 +350,6 @@ function AddDeal() {
               </div>
             </>
           ))}
-          
         </div>
 
         <button type="submit" className="submitBtn" onClick={submitData}>
