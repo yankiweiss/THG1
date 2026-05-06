@@ -10,11 +10,6 @@ if (!connectionString) {
 
 const dataBasePool = new Pool({
   connectionString,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-  connectionTimeoutMillis: 10000,
-  idleTimeoutMillis: 10000,
 });
 
 //import dotenv from 'dotenv';
