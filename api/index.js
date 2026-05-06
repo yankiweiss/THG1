@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 //import propertyRouter from './routes/property.js';
 //import eventRouter from './routes/event.js';
-//import investorRouter from './routes/investor.js';
-import investmentsRouter from './routes/investments.js';
+import investorRouter from './routes/investor.js';
+//import investmentsRouter from './routes/investments.js';
 
 dotenv.config();
 const app = express();
