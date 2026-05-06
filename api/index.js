@@ -3,9 +3,9 @@ import serverless from 'serverless-http';
 import dotenv from 'dotenv';
 
 import cors from 'cors';
-import propertyRouter from './routes/property.js';
+//import propertyRouter from './routes/property.js';
 import eventRouter from './routes/event.js';
-import investorRouter from './routes/investor.js';
+//import investorRouter from './routes/investor.js';
 import investmentsRouter from './routes/investments.js';
 
 dotenv.config();
@@ -14,9 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/property', propertyRouter);
+//app.use('/api/property', propertyRouter);
 app.use('/api/event', eventRouter);
-app.use('/api/investor', investorRouter);
+//app.use('/api/investor', investorRouter);
 app.use('/api/investments', investmentsRouter);
 
 
