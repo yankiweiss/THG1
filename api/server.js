@@ -6,7 +6,7 @@ import cors from 'cors';
 import propertyRouter from './routes/property.js';
 import eventRouter from './routes/event.js';
 import investorRouter from './routes/investor.js';
-import investmentRouter from './routes/investments.js';
+import investmentsRouter from './routes/investments.js';
 
 dotenv.config();
 const app = express();
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/api/property', propertyRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/investor', investorRouter);
-app.use('/api/investments', investmentRouter);
+app.use('/api/investments', investmentsRouter);
 
 //const PORT =3000;
 //

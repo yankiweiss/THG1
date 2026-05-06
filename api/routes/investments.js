@@ -1,8 +1,8 @@
 import express from 'express';
-import { getAllInvestments } from '../controllers/invesmentsController.js';
-const investmentRouter = express.Router();
+import { getAllInvestments } from '../controllers/investmentsController.js';
+const investmentsRouter = express.Router();
 
 
-investmentRouter.get('/',getAllInvestments)
+investmentsRouter.get('/',getAllInvestments)
 
-export default investmentRouter;
+export default investmentRouters;
