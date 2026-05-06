@@ -1,6 +1,6 @@
 import express from 'express';
 import { deleteProperty, getAllProperties, getPropertyById,  updatePropertyField } from '../controllers/propertyController.js';
-const router = express.Router();
+const propertyRouter = express.Router();
 
 
 //router.post('/addDeal', postAProperty)
@@ -11,4 +11,4 @@ router.put('/:id', updatePropertyField)
 
 
 
-export default router;
+export default propertyRouter;

@@ -130,6 +130,9 @@ const getPropertyById = async (req, res) => {
       [propertyId]
     );
 
+    if (propertyResult.rows.length === 0) {
+  return res.status(404).json({ error: "Property not found" });
+}
 
 
     res.json({
