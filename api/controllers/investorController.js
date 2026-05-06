@@ -30,57 +30,54 @@ const getInvestorByID = async (req, res) => {
   const { propertyId, investorId } = req.params;
 
   try {
-    // 1️⃣ Get investor info
+    // 1. Investor
     const investorResult = await dataBasePool.query(
       `SELECT * FROM investors WHERE id = $1`,
-      [investorId],
+      [investorId]
     );
+
     if (investorResult.rows.length === 0) {
-      return res.status(404).json({ message: "Investor not found!" });
+      return res.status(404).json({ message: "Investor not found" });
     }
+
     const investor = investorResult.rows[0];
 
-    // 2️⃣ Get all investments for this investor for this property
+    // 2. Investments
     const investmentsResult = await dataBasePool.query(
       `SELECT * FROM investments WHERE investor_id = $1 AND property_id = $2`,
-      [investorId, propertyId],
+      [investorId, propertyId]
     );
+
+    if (investmentsResult.rows.length === 0) {
+      return res.status(404).json({ message: "No investments found" });
+    }
 
     const investments = investmentsResult.rows[0];
 
-    if (!investments) {
-  return res.status(404).json({ message: "No investments found" });
-}
-    // 3️⃣ Get all events linked to each investment
-    // Map each investment to its events
-
-    let events = [];
-
+    // 3. Events (SAFE)
     const eventsResult = await dataBasePool.query(
       `SELECT * FROM events WHERE investment_id = $1`,
-      [investments.id],
+      [investments.investment_id || investments.id]
     );
-    events = eventsResult.rows;
 
-    // Attach events to corresponding investment
-
-    // 4️⃣ Get property info
+    // 4. Property
     const propertyResult = await dataBasePool.query(
       `SELECT * FROM properties WHERE id = $1`,
-      [propertyId],
+      [propertyId]
     );
+
     const property = propertyResult.rows[0] || null;
 
-    // 5️⃣ Return combined data
-    res.json({
+    return res.json({
       investor,
       property,
       investments,
-      events,
+      events: eventsResult.rows
     });
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
