@@ -19,6 +19,8 @@ app.use('/api/event', eventRouter);
 //app.use('/api/investor', investorRouter);
 app.use('/api/investments', investmentsRouter);
 
+console.log(investmentsRouter)
+
 
 
 const PORT =3000;
