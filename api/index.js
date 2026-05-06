@@ -23,7 +23,7 @@ import investorRouter from './routes/investor.js';
 
 //app.use('/api/property', propertyRouter);
 //app.use('/api/event', eventRouter);
-app.use('/api/investor', investorRouter);
+app.use('/investor', investorRouter);
 //app.use('/api/investments', investmentsRouter);
 
 

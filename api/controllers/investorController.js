@@ -19,10 +19,10 @@ const addingInvestorToProp = async (req, res) => {
       RETURNING *`,
       [investorID, property_id, invested_amount, perf_return],
     );
-    res.json(investmentResults.rows[0]);
+    return res.json(investmentResults.rows[0]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
