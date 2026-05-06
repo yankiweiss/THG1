@@ -40,4 +40,4 @@ LEFT JOIN (
   }
 };
 
-export { getAllInvestments };
+export default getAllInvestments ;

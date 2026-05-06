@@ -8,5 +8,4 @@ investorRouter.get('/:propertyId/:investorId', getInvestorByID).post('/addInvest
 
 
 
-
 export default investorRouter;
