@@ -7,8 +7,8 @@ const app = express();
 
 
 app.use(cors());
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+app.use(express.json({ limit: "100mb" }));
+//app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 import cors from 'cors';
 //import propertyRouter from './routes/property.js';
