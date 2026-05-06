@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use('/api/investor', investorRouter);
 //app.use('/api/investments', investmentsRouter);
 
-console.log(investmentsRouter)
+
 
 
 
