@@ -81,23 +81,38 @@ const getInvestorByID = async (req, res) => {
   }
 };
 
+const allowedFields = ["name", "email", "phone"]; // ONLY allowed columns
+
 const updateInvestorField = async (req, res) => {
   const { id } = req.params;
   const { field, value } = req.body;
 
   try {
-    const result = await dataBasePool.query(
-      `UPDATE investors
+    // 1. Validate field (VERY IMPORTANT)
+    if (!allowedFields.includes(field)) {
+      return res.status(400).json({ error: "Invalid field" });
+    }
+
+    // 2. Safe query (no injection possible)
+    const query = `
+      UPDATE investors
       SET ${field} = $1
       WHERE id = $2
-      RETURNING *; `,
-      [value, id],
-    );
+      RETURNING *;
+    `;
 
-    res.json(result.rows[0]);
+    const result = await dataBasePool.query(query, [value, id]);
+
+    // 3. Handle missing row
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Investor not found" });
+    }
+
+    return res.json(result.rows[0]);
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Update failed" });
+    return res.status(500).json({ error: "Update failed" });
   }
 };
 
