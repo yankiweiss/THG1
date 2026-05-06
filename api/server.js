@@ -14,10 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/properties', propertyRouter);
+app.use('/api/property', propertyRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/investor', investorRouter);
-app.use('/api/investment', investmentRouter);
+app.use('/api/investments', investmentRouter);
 
 //const PORT =3000;
 //
