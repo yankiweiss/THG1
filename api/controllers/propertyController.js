@@ -1,8 +1,8 @@
 import dataBasePool from "../model/db.js";
 
-
 const postAProperty = async (req, res) => {
-  const { property_name, purchase_price, investors, pictures, closing_date } = req.body;
+  const { property_name, purchase_price, investors, pictures, closing_date } =
+    req.body;
 
   if (!Array.isArray(investors)) {
     return res.status(400).json({ error: "Invalid investors data" });
@@ -16,7 +16,7 @@ const postAProperty = async (req, res) => {
     const propertyResult = await client.query(
       `INSERT INTO properties(property_name, purchase_price, secure_url, closing_date)
        VALUES($1, $2, $3, $4) RETURNING id`,
-      [property_name, purchase_price, pictures, closing_date]
+      [property_name, purchase_price, pictures, closing_date],
     );
 
     if (!propertyResult.rows.length) {
@@ -30,7 +30,7 @@ const postAProperty = async (req, res) => {
 
       const investorResult = await client.query(
         `INSERT INTO investors (name) VALUES ($1) RETURNING id`,
-        [investor_name]
+        [investor_name],
       );
 
       const investorID = investorResult.rows[0].id;
@@ -42,19 +42,17 @@ const postAProperty = async (req, res) => {
           invested_amount,
           perf_return
         ) VALUES ($1, $2, $3, $4)`,
-        [investorID, propertyID, amount_invested, preferred_return]
+        [investorID, propertyID, amount_invested, preferred_return],
       );
     }
 
     await client.query("COMMIT");
 
     res.status(201).json({ message: "Property created successfully" });
-
   } catch (error) {
     await client.query("ROLLBACK"); // ✅ critical
     console.error(error);
     res.status(500).json({ error: "Server error" });
-
   } finally {
     client.release();
   }
@@ -208,30 +206,30 @@ const deleteProperty = async (req, res) => {
   }
 };
 
-//const updatePropertyField = async (req, res) => {
-//  const { id } = req.params;
-//  const { field, value } = req.body;
-//
-//  try {
-//    const result = await dataBasePool.query(
-//      `UPDATE properties
-//      SET ${field} = $1
-//      WHERE id = $2
-//      RETURNING *; `,
-//      [value, id],
-//    );
-//
-//    res.json(result.rows[0]);
-//  } catch (err) {
-//    console.error(err);
-//    res.status(500).json({ error: "Update failed" });
-//  }
-//};
+const updatePropertyField = async (req, res) => {
+  const { id } = req.params;
+  const { field, value } = req.body;
+
+  try {
+    const result = await dataBasePool.query(
+      `UPDATE properties
+      SET ${field} = $1
+      WHERE id = $2
+      RETURNING *; `,
+      [value, id],
+    );
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Update failed" });
+  }
+};
 
 export {
   postAProperty,
   getAllProperties,
   getPropertyById,
   deleteProperty,
-  //updatePropertyField,
+  updatePropertyField,
 };
