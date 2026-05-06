@@ -169,9 +169,9 @@ const deleteProperty = async (req, res) => {
 //};
 
 export {
-  //postAProperty,
+  postAProperty,
   getAllProperties,
   getPropertyById,
   deleteProperty,
-  updatePropertyField,
+  //updatePropertyField,
 };
