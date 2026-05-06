@@ -153,6 +153,7 @@ const getPropertyById = async (req, res) => {
     res.status(500).json({ message: "Server error", error });
  
 };
+}
 
 
 const deleteProperty = async (req, res) => {
