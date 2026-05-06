@@ -19,12 +19,12 @@ app.use('/api/event', eventRouter);
 app.use('/api/investor', investorRouter);
 app.use('/api/investments', investmentsRouter);
 
-//const PORT =3000;
-//
-//app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`))
+const PORT =3000;
+
+app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`))
 
 
 
-export default serverless(app);
+//export default serverless(app);
 
 
