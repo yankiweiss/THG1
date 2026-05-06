@@ -30,7 +30,7 @@ const getInvestorByID = async (req, res) => {
   const { propertyId, investorId } = req.params;
 
   try {
-    // 1. Investor
+    // Investor
     const investorResult = await dataBasePool.query(
       `SELECT * FROM investors WHERE id = $1`,
       [investorId]
@@ -42,7 +42,7 @@ const getInvestorByID = async (req, res) => {
 
     const investor = investorResult.rows[0];
 
-    // 2. Investments
+    // Investments
     const investmentsResult = await dataBasePool.query(
       `SELECT * FROM investments WHERE investor_id = $1 AND property_id = $2`,
       [investorId, propertyId]
@@ -52,27 +52,25 @@ const getInvestorByID = async (req, res) => {
       return res.status(404).json({ message: "No investments found" });
     }
 
-    const investments = investmentsResult.rows[0];
+    const investment = investmentsResult.rows[0];
 
-    // 3. Events (SAFE)
+    // Events (safe)
     const eventsResult = await dataBasePool.query(
       `SELECT * FROM events WHERE investment_id = $1`,
-      [investments.investment_id || investments.id]
+      [investment.id] // 🔥 FIX: use correct column
     );
 
-    // 4. Property
+    // Property
     const propertyResult = await dataBasePool.query(
       `SELECT * FROM properties WHERE id = $1`,
       [propertyId]
     );
 
-    const property = propertyResult.rows[0] || null;
-
     return res.json({
       investor,
-      property,
-      investments,
-      events: eventsResult.rows
+      property: propertyResult.rows[0] || null,
+      investment,
+      events: eventsResult.rows,
     });
 
   } catch (err) {
