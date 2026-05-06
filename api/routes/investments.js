@@ -6,7 +6,7 @@ const investmentsRouter = express.Router();
 
 investmentsRouter.get("/", getAllInvestments);
 
-console.log(getAllInvestments)
+
 
 
 
