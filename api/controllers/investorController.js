@@ -30,52 +30,46 @@ const getInvestorByID = async (req, res) => {
   const { propertyId, investorId } = req.params;
 
   try {
-    // Investor
     const investorResult = await dataBasePool.query(
       `SELECT * FROM investors WHERE id = $1`,
       [investorId]
     );
 
-    if (investorResult.rows.length === 0) {
+    if (!investorResult.rows.length) {
       return res.status(404).json({ message: "Investor not found" });
     }
 
-    const investor = investorResult.rows[0];
-
-    // Investments
     const investmentsResult = await dataBasePool.query(
       `SELECT * FROM investments WHERE investor_id = $1 AND property_id = $2`,
       [investorId, propertyId]
     );
 
-    if (investmentsResult.rows.length === 0) {
+    if (!investmentsResult.rows.length) {
       return res.status(404).json({ message: "No investments found" });
     }
 
     const investment = investmentsResult.rows[0];
 
-    // Events (safe)
     const eventsResult = await dataBasePool.query(
       `SELECT * FROM events WHERE investment_id = $1`,
-      [investment.id] // 🔥 FIX: use correct column
+      [investment.id]
     );
 
-    // Property
     const propertyResult = await dataBasePool.query(
       `SELECT * FROM properties WHERE id = $1`,
       [propertyId]
     );
 
     return res.json({
-      investor,
-      property: propertyResult.rows[0] || null,
+      investor: investorResult.rows[0],
       investment,
-      events: eventsResult.rows,
+      property: propertyResult.rows[0] || null,
+      events: eventsResult.rows
     });
 
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Server error" });
+    console.error("INVESTOR ERROR:", err);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 

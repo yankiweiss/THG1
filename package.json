@@ -1,4 +1,7 @@
 {
+  "name": "thg-fullstack",
+  "version": "1.0.0",
+  "type": "module",
   "dependencies": {
     "pg": "^8.20.0",
     "serverless-http": "^4.0.0"
