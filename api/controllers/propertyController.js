@@ -1,8 +1,12 @@
 import dataBasePool from "../model/db.js";
 
+
 const postAProperty = async (req, res) => {
-  const { property_name, purchase_price, investors, pictures, closing_date } =
-    req.body;
+  const { property_name, purchase_price, investors, pictures, closing_date } = req.body;
+
+  if (!Array.isArray(investors)) {
+    return res.status(400).json({ error: "Invalid investors data" });
+  }
 
   const client = await dataBasePool.connect();
 
@@ -10,53 +14,109 @@ const postAProperty = async (req, res) => {
     await client.query("BEGIN");
 
     const propertyResult = await client.query(
-      `
-  INSERT INTO properties(property_name, purchase_price, secure_url, closing_date )
-  VALUES($1, $2, $3, $4) RETURNING id`,
-      [property_name, purchase_price, pictures, closing_date],
+      `INSERT INTO properties(property_name, purchase_price, secure_url, closing_date)
+       VALUES($1, $2, $3, $4) RETURNING id`,
+      [property_name, purchase_price, pictures, closing_date]
     );
+
+    if (!propertyResult.rows.length) {
+      throw new Error("Property insert failed");
+    }
+
+    const propertyID = propertyResult.rows[0].id;
 
     for (const entry of investors) {
       const { investor_name, amount_invested, preferred_return } = entry;
 
       const investorResult = await client.query(
-        `INSERT INTO investors (name)
-            VALUES ($1)
-            RETURNING id`,
-        [investor_name],
+        `INSERT INTO investors (name) VALUES ($1) RETURNING id`,
+        [investor_name]
       );
-
-      const propertyID = propertyResult.rows[0].id;
-
-      if (!propertyResult.rows.length) {
-  throw new Error("Property insert failed");
-}
 
       const investorID = investorResult.rows[0].id;
 
       await client.query(
         `INSERT INTO investments (
-         investor_id,
+          investor_id,
           property_id,
           invested_amount,
-          perf_return)  VALUES ($1, $2, $3, $4)`,
-        [investorID, propertyID, amount_invested, preferred_return],
+          perf_return
+        ) VALUES ($1, $2, $3, $4)`,
+        [investorID, propertyID, amount_invested, preferred_return]
       );
     }
 
     await client.query("COMMIT");
 
-    res.status(201).json({
-      message: "Property created successfully",
-    });
+    res.status(201).json({ message: "Property created successfully" });
+
   } catch (error) {
-    await client.query("ROLLBACK");
+    await client.query("ROLLBACK"); // ✅ critical
     console.error(error);
     res.status(500).json({ error: "Server error" });
+
   } finally {
     client.release();
   }
 };
+
+//const postAProperty = async (req, res) => {
+//  const { property_name, purchase_price, investors, pictures, closing_date } =
+//    req.body;
+//
+//  const client = await dataBasePool.connect();
+//
+//  try {
+//    await client.query("BEGIN");
+//
+//    const propertyResult = await client.query(
+//      `
+//  INSERT INTO properties(property_name, purchase_price, secure_url, closing_date )
+//  VALUES($1, $2, $3, $4) RETURNING id`,
+//      [property_name, purchase_price, pictures, closing_date],
+//    );
+//
+//    for (const entry of investors) {
+//      const { investor_name, amount_invested, preferred_return } = entry;
+//
+//      const investorResult = await client.query(
+//        `INSERT INTO investors (name)
+//            VALUES ($1)
+//            RETURNING id`,
+//        [investor_name],
+//      );
+//
+//      const propertyID = propertyResult.rows[0].id;
+//
+//      if (!propertyResult.rows.length) {
+//  throw new Error("Property insert failed");
+//}
+//
+//      const investorID = investorResult.rows[0].id;
+//
+//      await client.query(
+//        `INSERT INTO investments (
+//         investor_id,
+//          property_id,
+//          invested_amount,
+//          perf_return)  VALUES ($1, $2, $3, $4)`,
+//        [investorID, propertyID, amount_invested, preferred_return],
+//      );
+//    }
+//
+//    await client.query("COMMIT");
+//
+//    res.status(201).json({
+//      message: "Property created successfully",
+//    });
+//  } catch (error) {
+//    await client.query("ROLLBACK");
+//    console.error(error);
+//    res.status(500).json({ error: "Server error" });
+//  } finally {
+//    client.release();
+//  }
+//};
 
 const getAllProperties = async (req, res) => {
   const getAllPropertiesDB = `
