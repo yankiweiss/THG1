@@ -16,7 +16,7 @@ import investmentsRouter from "./routes/investments.js";
 
 app.use("/api/properties", propertyRouter);
 app.use("/api/event", eventRouter);
-app.use("api/investor", investorRouter);
+app.use("/api/investor", investorRouter);
 app.use("/api/investments", investmentsRouter);
 
 const PORT =3000;
