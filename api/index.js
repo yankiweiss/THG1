@@ -14,7 +14,7 @@ import eventRouter from "./routes/event.js";
 import investorRouter from "./routes/investor.js";
 import investmentsRouter from "./routes/investments.js";
 
-app.use("/api/property", propertyRouter);
+app.use("/api/properties", propertyRouter);
 app.use("/api/event", eventRouter);
 app.use("api/investor", investorRouter);
 app.use("/api/investments", investmentsRouter);
