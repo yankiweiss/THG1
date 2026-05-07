@@ -83,7 +83,7 @@ let totalAmountInvested;
 // below will be a function to get back quarters expected return.
 
 const expectedQuarterReturns = (
-  year,
+  ddYear,
   initialInvestment,
   events,
   perfReturn,
@@ -155,14 +155,22 @@ const expectedQuarterReturns = (
 
   const endDate = timelineArray[timelineArray.length - 1].quarters[3].end;
 
+    const selectedYearQuarters =  timelineArray.find((yr) => {
+      return yr.year == ddYear
+    })
+
   eventsAndDates.forEach((evt) => {
     const eventStart = new Date(evt.date);
     //const endDate = new Date();
     const eventType = evt.event;
     const amount = evt.amount;
 
-    timelineArray.forEach((year) => {
-      year.quarters.forEach((q) => {
+  
+
+    console.log(selectedYearQuarters)
+
+  
+      selectedYearQuarters.quarters.forEach((q) => {
         const qStart = new Date(q.start);
         const qEnd = new Date(q.end);
 
@@ -186,26 +194,16 @@ const expectedQuarterReturns = (
         }
       });
     });
-  });
+  
 
- const a = 2;
- console.log(a)
-
- const b = 5;
- console.log(b)
-
- const i = 10;
- console.log(i)
-
-
-  timelineArray.forEach((year) => {
-    year.quarters.forEach((q) => {
+selectedYearQuarters.quarters.forEach((q) => {
       chartJS.push({ x: q.start, y: Number(q.expectedReturn) });
     });
-  });
+  
 
   return { chartJS, totalExpected: expectedReturnAmount(timelineArray) };
 };
+
 
 const expectedReturnAmount = (timeline) => {
   let totalExpected = 0;

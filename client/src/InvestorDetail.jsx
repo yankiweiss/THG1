@@ -34,7 +34,7 @@ function InvestorDetail() {
   let { propertyId, investorId } = useParams();
 
   const fetchProperty = async () => {
-    await fetch(`/api/investor/${propertyId}/${investorId}`)
+    await fetch(`https://thg-1.vercel.app/api/investor/${propertyId}/${investorId}`)
       .then((res) => res.json())
       .then((data) => setInvestorData(data));
     setLoading(true);
