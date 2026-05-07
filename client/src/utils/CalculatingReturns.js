@@ -169,8 +169,7 @@ const expectedQuarterReturns = (
 
     console.log(selectedYearQuarters)
 
-  
-      selectedYearQuarters.quarters.forEach((q) => {
+  timelineArray.forEach((year) => {year.quarters.forEach((q) => {
         const qStart = new Date(q.start);
         const qEnd = new Date(q.end);
 
@@ -194,6 +193,8 @@ const expectedQuarterReturns = (
         }
       });
     });
+  })
+      
   
 
 selectedYearQuarters.quarters.forEach((q) => {
