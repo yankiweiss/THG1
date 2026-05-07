@@ -19,10 +19,10 @@ const addingInvestorToProp = async (req, res) => {
       RETURNING *`,
       [investorID, property_id, invested_amount, perf_return],
     );
-    return res.json(investmentResults.rows[0]);
+    res.json(investmentResults.rows[0]);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -30,82 +30,78 @@ const getInvestorByID = async (req, res) => {
   const { propertyId, investorId } = req.params;
 
   try {
+    // 1️⃣ Get investor info
     const investorResult = await dataBasePool.query(
       `SELECT * FROM investors WHERE id = $1`,
-      [investorId]
+      [investorId],
     );
-
-    if (!investorResult.rows.length) {
-      return res.status(404).json({ message: "Investor not found" });
+    if (investorResult.rows.length === 0) {
+      return res.status(404).json({ message: "Investor not found!" });
     }
+    const investor = investorResult.rows[0];
 
+    // 2️⃣ Get all investments for this investor for this property
     const investmentsResult = await dataBasePool.query(
       `SELECT * FROM investments WHERE investor_id = $1 AND property_id = $2`,
-      [investorId, propertyId]
+      [investorId, propertyId],
     );
 
-    if (!investmentsResult.rows.length) {
-      return res.status(404).json({ message: "No investments found" });
-    }
+    const investments = investmentsResult.rows[0];
 
-    const investment = investmentsResult.rows[0];
+    // 3️⃣ Get all events linked to each investment
+    // Map each investment to its events
+
+    let events = [];
 
     const eventsResult = await dataBasePool.query(
       `SELECT * FROM events WHERE investment_id = $1`,
-      [investment.id]
+      [investments.id],
     );
+    events = eventsResult.rows;
 
+    // Attach events to corresponding investment
+
+    // 4️⃣ Get property info
     const propertyResult = await dataBasePool.query(
       `SELECT * FROM properties WHERE id = $1`,
-      [propertyId]
+      [propertyId],
     );
+    const property = propertyResult.rows[0] || null;
 
-    return res.json({
-      investor: investorResult.rows[0],
-      investment,
-      property: propertyResult.rows[0] || null,
-      events: eventsResult.rows
+    // 5️⃣ Return combined data
+    res.json({
+      investor,
+      property,
+      investments,
+      events,
     });
-
   } catch (err) {
-    console.error("INVESTOR ERROR:", err);
-    return res.status(500).json({ error: "Server error" });
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 };
-
-const allowedFields = ["name", "email", "phone"]; // ONLY allowed columns
 
 const updateInvestorField = async (req, res) => {
   const { id } = req.params;
   const { field, value } = req.body;
 
   try {
-    // 1. Validate field (VERY IMPORTANT)
-    if (!allowedFields.includes(field)) {
-      return res.status(400).json({ error: "Invalid field" });
-    }
-
-    // 2. Safe query (no injection possible)
-    const query = `
-      UPDATE investors
+    const result = await dataBasePool.query(
+      `UPDATE investors
       SET ${field} = $1
       WHERE id = $2
-      RETURNING *;
-    `;
+      RETURNING *; `,
+      [value, id],
+    );
 
-    const result = await dataBasePool.query(query, [value, id]);
-
-    // 3. Handle missing row
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Investor not found" });
-    }
-
-    return res.json(result.rows[0]);
-
+    res.json(result.rows[0]);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Update failed" });
+    res.status(500).json({ error: "Update failed" });
   }
 };
 
 export { addingInvestorToProp, getInvestorByID, updateInvestorField };
+
+
+
