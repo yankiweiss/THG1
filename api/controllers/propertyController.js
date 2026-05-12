@@ -58,8 +58,6 @@ const postAProperty = async (req, res) => {
   }
 };
 
-
-
 const getAllProperties = async (req, res) => {
   const getAllPropertiesDB = `
     SELECT * FROM properties`;
@@ -131,14 +129,23 @@ const getPropertyById = async (req, res) => {
   }
 };
 
-const deleteProperty = (req, res) => {
-  console.log(req.params)
+const deleteProperty = async (req, res) => {
+  const { propertyId } = req.params;
 
-  const propertyID = req.params
+  console.log(propertyId);
+  try {
+    const deleteById = await dataBasePool.query(
+      `
+      DELETE FROM properties
+      WHERE id = ${propertyId}
+       RETURNING *`,
+    );
 
-}
-
-
+    res.status(200);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const updatePropertyField = async (req, res) => {
   const { id } = req.params;

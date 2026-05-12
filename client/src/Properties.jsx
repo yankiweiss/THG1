@@ -31,6 +31,26 @@ function Properties() {
     setLoading(true);
   };
 
+  const handleDelete = async (id) => {
+    const confirm = window.confirm("are you sure you want to delete this property?");
+    if (!confirm) {
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://thg-1.vercel.app/api/properties/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //  const getAllProperties = async () => {
   //    const response = await fetch(`https://thg-seven.vercel.app/api/properties`);
   //    const data = await response.json();
@@ -53,18 +73,6 @@ function Properties() {
     });
 
     return usdFormatter.format(number);
-  };
-
-  const handlePropertyDelete = () => {
-    const confirmed = confirm(
-      "this feature is currently not working, working on it",
-    );
-
-    if (confirmed) {
-      console.log("deleting this property");
-    }
-
-    fetch("");
   };
 
   return (
@@ -177,7 +185,7 @@ function Properties() {
                             className="delete"
                             color="red"
                             fontSize={"1.5rem"}
-                            onClick={handlePropertyDelete}
+                            onClick={() => handleDelete(property.id)}
                           />
                         </div>
                       </div>
