@@ -17,6 +17,8 @@ function Properties() {
   //
   //  console.log(baseUrl);
 
+
+
   const getAllProperties = async () => {
     const response = await fetch("https://thg-1.vercel.app/api/properties");
 
@@ -32,10 +34,13 @@ function Properties() {
   };
 
   const handleDelete = async (id) => {
+    
     const confirm = window.confirm("are you sure you want to delete this property?");
     if (!confirm) {
       return;
     }
+
+
     try {
       const response = await fetch(
         `https://thg-1.vercel.app/api/properties/${id}`,
@@ -45,10 +50,17 @@ function Properties() {
       );
 
       const result = await response.json();
+      console.log(result)
+
+      setPropertyData((prev) => prev.filter((property) => Number(property.id) !== Number(id))); 
+
+     
       console.log(result);
     } catch (error) {
       console.log(error);
     }
+
+   
   };
 
   //  const getAllProperties = async () => {
@@ -74,6 +86,8 @@ function Properties() {
 
     return usdFormatter.format(number);
   };
+
+  console.log(propertyData)
 
   return (
     <>

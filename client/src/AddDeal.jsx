@@ -98,7 +98,7 @@ function AddDeal() {
 
     console.log(payload);
     try {
-      await fetch("/api/properties/addDeal", {
+      await fetch("https://thg-1.vercel.app/api/properties/addDeal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

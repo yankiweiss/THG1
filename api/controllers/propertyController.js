@@ -137,11 +137,12 @@ const deleteProperty = async (req, res) => {
     const deleteById = await dataBasePool.query(
       `
       DELETE FROM properties
-      WHERE id = ${propertyId}
+      WHERE id = $1
        RETURNING *`,
+       [propertyId]
     );
 
-    res.status(200);
+    res.status(200).json(deleteById.rows[0]);
   } catch (error) {
     console.log(error);
   }
