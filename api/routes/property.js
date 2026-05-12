@@ -6,7 +6,7 @@ const propertyRouter = express.Router();
 propertyRouter.post('/addDeal', postAProperty)
 propertyRouter.get('/', getAllProperties)
 propertyRouter.get('/:id', getPropertyById)
-propertyRouter.delete('/:id', deleteProperty)
+propertyRouter.delete('/:propertyId', deleteProperty)
 propertyRouter.put('/:id', updatePropertyField)
 
 
