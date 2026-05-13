@@ -34,12 +34,12 @@ function Properties() {
   };
 
   const handleDelete = async (id) => {
-    
-    const confirm = window.confirm("are you sure you want to delete this property?");
+    const confirm = window.confirm(
+      "are you sure you want to delete this property?",
+    );
     if (!confirm) {
       return;
     }
-
 
     try {
       const response = await fetch(
@@ -50,17 +50,16 @@ function Properties() {
       );
 
       const result = await response.json();
-      console.log(result)
+      console.log(result);
 
-      setPropertyData((prev) => prev.filter((property) => Number(property.id) !== Number(id))); 
+      setPropertyData((prev) =>
+        prev.filter((property) => Number(property.id) !== Number(id)),
+      );
 
-     
       console.log(result);
     } catch (error) {
       console.log(error);
     }
-
-   
   };
 
   //  const getAllProperties = async () => {
@@ -191,6 +190,7 @@ function Properties() {
                           </h3>
 
                           <div className="investors_name_flex">
+                           
                             <h6 className="investor_name">Yankee Weiss</h6>
                           </div>
                         </div>

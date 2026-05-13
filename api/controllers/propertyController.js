@@ -60,7 +60,23 @@ const postAProperty = async (req, res) => {
 
 const getAllProperties = async (req, res) => {
   const getAllPropertiesDB = `
-    SELECT * FROM properties`;
+        SELECT p.* ,
+        
+            json_agg(
+            json_build_object(
+            'investment_id', i.id,
+            'investor_name',  i.name
+             )) AS investors
+
+             FROM properties p
+
+           LEFT JOIN investments inv
+           ON inv.property_id = p.id
+
+           LEFT JOIN investors i
+           ON i.id = inv.investor_id
+
+        GROUP BY p.id`;
 
   console.log("query started");
 
