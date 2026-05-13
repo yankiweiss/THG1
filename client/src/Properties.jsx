@@ -17,8 +17,6 @@ function Properties() {
   //
   //  console.log(baseUrl);
 
-
-
   const getAllProperties = async () => {
     const response = await fetch("https://thg-1.vercel.app/api/properties");
 
@@ -86,7 +84,7 @@ function Properties() {
     return usdFormatter.format(number);
   };
 
-  console.log(propertyData)
+  console.log(propertyData);
 
   return (
     <>
@@ -190,8 +188,11 @@ function Properties() {
                           </h3>
 
                           <div className="investors_name_flex">
-                           
-                            <h6 className="investor_name">Yankee Weiss</h6>
+                            {property?.investors.map((investor) => (
+                              <h6 className="investor_name">
+                                {investor.investor_name}
+                              </h6>
+                            ))}
                           </div>
                         </div>
                         <div>
