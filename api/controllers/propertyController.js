@@ -61,7 +61,7 @@ const postAProperty = async (req, res) => {
 const getAllProperties = async (req, res) => {
   const getAllPropertiesDB = `
         SELECT p.* ,
-        
+
             json_agg(
             json_build_object(
             'investment_id', i.id,
@@ -177,7 +177,7 @@ const updatePropertyField = async (req, res) => {
       [value, id],
     );
 
-    res.json(result.rows[0]);
+    res.json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Update failed" });

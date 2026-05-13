@@ -25,7 +25,7 @@ function PropertyDetail() {
     fetchProperty();
   }, []);
 
-  console.log(typeof propertyData.closing_date);
+
 
   const formatNumbers = (number) => {
     const usdFormatter = new Intl.NumberFormat("en-US", {
@@ -36,6 +36,30 @@ function PropertyDetail() {
     return usdFormatter.format(number);
   };
 
+  const handleEditField =  async (field, value) => {
+    setPropertyData((prev) => ({
+      ...prev,
+      [field] : value
+    }))
+
+    const payload = {
+      field,
+      value
+    }
+
+  const response = await fetch(`https://thg-1.vercel.app/api/properties/${id}`, {
+   method: 'PUT',
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload)
+  
+
+  })
+
+  console.log(response)
+  }
+  
+  
+
   console.log(propertyData);
 
   return (
@@ -44,7 +68,12 @@ function PropertyDetail() {
         <div className="right-side">
           <div className="main-flex">
             <div className="property-content">
-              <h3 className="fw600">{propertyData.property_name}</h3>
+              <input
+                className="fw600 input"
+                type="text"
+                value={propertyData?.property_name}
+                onChange={(e) => handleEditField('property_name', e.target.value)}
+              ></input>
 
               <div className="propertyDetail_flex">
                 <img

@@ -8,6 +8,7 @@ body {
 
 .fw600 {
   font-weight: 600;
+  
 }
 
 button{
@@ -765,5 +766,18 @@ table td {
 }
 
 /* test page */
+
+.input{
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+
+}
+.input:focus{
+  
+  border: 0.5px solid rgba(173, 216, 230, 0.548);
+  border-radius: 8px;
+}
 
 
