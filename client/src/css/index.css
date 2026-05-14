@@ -771,6 +771,7 @@ table td {
   background-color: transparent;
   border: none;
   outline: none;
+  text-align: center;
 
 
 }
@@ -778,6 +779,10 @@ table td {
   
   border: 0.5px solid rgba(173, 216, 230, 0.548);
   border-radius: 8px;
+}
+
+#big-font{
+  font-size: 1.5rem;
 }
 
 

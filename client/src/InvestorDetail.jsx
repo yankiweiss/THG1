@@ -157,6 +157,19 @@ function InvestorDetail() {
     return usdFormatter.format(number);
   };
 
+  const handleEditField = (field , value) => {
+
+    setInvestorData((prev) => ({
+      ...prev,
+    [field] : value
+
+    }))
+
+
+  }
+
+  console.log(investorData)
+
   return (
     <>
       {loading ? (
@@ -179,7 +192,16 @@ function InvestorDetail() {
                 <h6 style={{ color: "#2570C0" }} className="fw600">
                   INVESTOR
                 </h6>
-                <h3 className="fw600">{investorData?.investor?.name}</h3>
+                
+               <input
+               id="big-font"
+               style={{width: '95%'}}
+            className="input fw600 "
+               value={investorData?.investor.name}
+               onChange={(e) => handleEditField('investor_name', e.target.value)}
+               >
+               </input>
+              
               </div>
               <div className="ID-investor-details">
                 <div className="column-flex">
