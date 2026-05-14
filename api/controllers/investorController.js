@@ -33,7 +33,7 @@ const getInvestorByID = async (req, res) => {
     const response = await dataBasePool.query(
       `
       SELECT inv.perf_return,inv.invested_amount,
-  i.name AS investor_name,
+  i.name AS name,
   p.property_name AS property_name,
   p.secure_url AS image_url,
   p.closing_date AS closing_date,
