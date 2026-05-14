@@ -159,13 +159,24 @@ function InvestorDetail() {
     return usdFormatter.format(number);
   };
 
-  const handleEditField = (field , value) => {
+  const handleEditField = async (field , value) => {
 
     setInvestorData((prev) => ({
       ...prev,
     [field] : value
-
     }))
+
+    const payload = {
+      field,
+      value
+    }
+
+    await fetch(`https://thg-1.vercel.app/api/investor/${investorId}`, {
+      method: 'PUT',
+       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+
+    })
 
 
   }
