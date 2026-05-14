@@ -211,7 +211,7 @@ function InvestorDetail() {
                style={{width: '95%'}}
             className="input fw600 "
                value={investorData.name}
-               onChange={(e) => handleEditField('investor_name', e.target.value)}
+               onChange={(e) => handleEditField('name', e.target.value)}
                >
                </input>
               
