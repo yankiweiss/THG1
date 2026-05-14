@@ -36,7 +36,7 @@ const getInvestorByID = async (req, res) => {
   i.name AS investor_name,
   p.property_name AS property_name,
   p.secure_url AS image_url,
-  json_agg(json_build_object('event_date', e.event_date, 'event_amount', e.event_amount, 'event_type', e.event_type, 'form',e.from_date, 'to', e.to_date)) 
+  json_agg(json_build_object('event_date', e.event_date, 'event_amount', e.event_amount, 'event_type', e.event_type, 'from',e.from_date, 'to', e.to_date)) 
   AS events 
   FROM investments inv 
   INNER JOIN investors i 

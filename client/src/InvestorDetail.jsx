@@ -26,10 +26,12 @@ function InvestorDetail() {
 
   const events = investorData?.events || [];
 
+  console.log(events)
+
   const initialInvestment = Number(investorData?.investments?.invested_amount);
   const closingDate = investorData?.property?.closing_date;
 
-  const perfReturn = Number(investorData?.investments?.perf_return);
+  const perfReturn = Number(investorData?.perf_return);
 
   let { propertyId, investorId } = useParams();
 
@@ -95,12 +97,12 @@ function InvestorDetail() {
 
   const barChartData = {
     datasets: [
-      {
-        label: "Actual Return",
-        data: actualReturns(events, ddSelectedYear),
-        backgroundColor: "#6B47FF",
-        barThickness: 20,
-      },
+      //{
+      //  label: "Actual Return",
+      //  data: actualReturns(events, ddSelectedYear),
+      //  backgroundColor: "#6B47FF",
+      //  barThickness: 20,
+      //},
 
       {
         label: "Expected Return",
@@ -175,7 +177,7 @@ function InvestorDetail() {
       {loading ? (
         <div className="right-side">
           <div className="main_page">
-            <h3 className="fw600">{investorData[0]?.property_name}</h3>
+            <h3 className="fw600">{investorData?.property_name}</h3>
 
             <div className="top-flex">
               <img
@@ -197,7 +199,7 @@ function InvestorDetail() {
                id="big-font"
                style={{width: '95%'}}
             className="input fw600 "
-               value={investorData[0].investor_name}
+               value={investorData.investor_name}
                onChange={(e) => handleEditField('investor_name', e.target.value)}
                >
                </input>
@@ -217,9 +219,9 @@ function InvestorDetail() {
                   <h6 className="ID-text fw600">
                     INVESTMENT<br></br> TO DATE{" "}
                   </h6>
-                  {/*<h6 className="fw600">
+                  <h6 className="fw600">
                     {formatNumbers(investmentToDate(initialInvestment, events))}
-                  </h6>*/}
+                  </h6>
                 </div>
 
                 <div className="column-flex">
@@ -305,13 +307,13 @@ function InvestorDetail() {
                   </thead>
                   <tbody>
                     {investorData?.events?.length > 0 ? (
-                      investorData?.events.map((evt) => (
+                     investorData?.events?.map((evt) => (
                         <tr>
                           {evt.event_date === null ? (
                             <td>
-                              {format(parseISO(evt.from_date), "MM/dd/yyyy")}-
+                              {format(parseISO(evt.from), "MM/dd/yyyy")}-
                               <br></br>
-                              {format(parseISO(evt.to_date), "MM/dd/yyyy")}
+                              {format(parseISO(evt.to), "MM/dd/yyyy")}
                             </td>
                           ) : (
                             <td>
