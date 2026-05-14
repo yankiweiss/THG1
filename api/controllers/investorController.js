@@ -48,7 +48,7 @@ const getInvestorByID = async (req, res) => {
   ON e.investment_id = inv.id 
   WHERE inv.investor_id = $1 
   AND inv.property_id = $2
-  GROUP BY inv.id, i.name, p.property_name, p.secure_url
+  GROUP BY inv.id, i.name, p.property_name, p.secure_url, p.closing_date
   `,
       [investorId, propertyId],
     );
