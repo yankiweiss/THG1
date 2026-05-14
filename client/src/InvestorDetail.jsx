@@ -28,8 +28,8 @@ function InvestorDetail() {
 
   console.log(events)
 
-  const initialInvestment = Number(investorData?.investments?.invested_amount);
-  const closingDate = investorData?.property?.closing_date;
+  const initialInvestment = Number(investorData?.invested_amount);
+  const closingDate = investorData?.closing_date;
 
   const perfReturn = Number(investorData?.perf_return);
 
@@ -97,12 +97,12 @@ function InvestorDetail() {
 
   const barChartData = {
     datasets: [
-      //{
-      //  label: "Actual Return",
-      //  data: actualReturns(events, ddSelectedYear),
-      //  backgroundColor: "#6B47FF",
-      //  barThickness: 20,
-      //},
+      {
+        label: "Actual Return",
+        data: actualReturns(events, ddSelectedYear),
+        backgroundColor: "#6B47FF",
+        barThickness: 20,
+      },
 
       {
         label: "Expected Return",
@@ -143,7 +143,7 @@ function InvestorDetail() {
   };
 
   const yearsY = events.map((event) => {
-    const date = event.event_date ?? event.to_date ?? event.from_date;
+    const date = event.event_date ?? event.to ?? event.from;
 
     return new Date(date).getFullYear();
   });

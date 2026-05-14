@@ -21,8 +21,8 @@ const actualReturns = (events, year) => {
   let combined = 0;
 
   returnEvents?.forEach((event) => {
-    const fromDate = parseISO(event.from_date);
-    const endDate = parseISO(event.to_date);
+    const fromDate = parseISO(event.from);
+    const endDate = parseISO(event.to);
     const eventAmount = event.event_amount;
 
     // getting total of days per event.
