@@ -30,7 +30,8 @@ const getInvestorByID = async (req, res) => {
   const { propertyId, investorId } = req.params;
 
   try {
-    const response = await dataBasePool.query(`
+    const response = await dataBasePool.query(
+      `
       SELECT inv.perf_return,inv.invested_amount,
   i.name AS investor_name,
   p.property_name AS property_name,
@@ -47,13 +48,13 @@ const getInvestorByID = async (req, res) => {
   WHERE inv.investor_id = $1 
   AND inv.property_id = $2
   GROUP BY inv.id, i.name, p.property_name, p.secure_url
-  `, [investorId, propertyId],);
+  `,
+      [investorId, propertyId],
+    );
 
-  return res.json(response.rows)
-
-
+    return res.json(response.rows[0]);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 

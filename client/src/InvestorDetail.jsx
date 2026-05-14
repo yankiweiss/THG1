@@ -175,11 +175,11 @@ function InvestorDetail() {
       {loading ? (
         <div className="right-side">
           <div className="main_page">
-            <h3 className="fw600">{investorData?.property?.property_name}</h3>
+            <h3 className="fw600">{investorData[0]?.property_name}</h3>
 
             <div className="top-flex">
               <img
-                src={investorData?.property?.secure_url}
+                src={investorData?.image_url}
                 width={"300px"}
                 height={"146px"}
                 style={{
@@ -197,7 +197,7 @@ function InvestorDetail() {
                id="big-font"
                style={{width: '95%'}}
             className="input fw600 "
-               value={investorData?.investor.name}
+               value={investorData[0].investor_name}
                onChange={(e) => handleEditField('investor_name', e.target.value)}
                >
                </input>
@@ -209,7 +209,7 @@ function InvestorDetail() {
                     INITIAL<br></br> INVESTMENT{" "}
                   </h6>
                   <h6 className="fw600">
-                    {formatNumbers(investorData?.investments?.invested_amount)}
+                    {formatNumbers(investorData?.invested_amount)}
                   </h6>
                 </div>
 
@@ -217,9 +217,9 @@ function InvestorDetail() {
                   <h6 className="ID-text fw600">
                     INVESTMENT<br></br> TO DATE{" "}
                   </h6>
-                  <h6 className="fw600">
+                  {/*<h6 className="fw600">
                     {formatNumbers(investmentToDate(initialInvestment, events))}
-                  </h6>
+                  </h6>*/}
                 </div>
 
                 <div className="column-flex">
@@ -227,7 +227,7 @@ function InvestorDetail() {
                     PERF <br></br>RETURN
                   </h6>
                   <h6 className="fw600">
-                    {investorData?.investments?.perf_return}%
+                    {investorData?.perf_return}%
                   </h6>
                 </div>
                 <div className="column-flex">
