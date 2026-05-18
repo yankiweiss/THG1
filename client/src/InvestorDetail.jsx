@@ -417,7 +417,7 @@ function InvestorDetail() {
                               className="deal-input"
                               type="date"
                               style={{ width: "auto" }}
-                              name="from_date"
+                              name="from"
                               required
                             ></input>
                           </div>
@@ -428,7 +428,7 @@ function InvestorDetail() {
                               className="deal-input"
                               type="date"
                               style={{ width: "auto" }}
-                              name="to_date"
+                              name="to"
                               required
                             ></input>
                           </div>

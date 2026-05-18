@@ -8,8 +8,8 @@ const postAEvent = async (req, res) => {
     notes,
     propertyId,
     investorId,
-    to_date,
-    from_date,
+    to,
+    from,
   } = req.body;
 
   const selectInvestmentID = await dataBasePool.query(
@@ -33,8 +33,8 @@ WHERE investor_id = $1 AND property_id = $2;`,
     event_amount,
     notes,
     investmentID,
-    to_date,
-    from_date
+    to,
+    from
   ]);
 
   res.json(results.rows[0]);
