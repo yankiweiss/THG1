@@ -24,7 +24,7 @@ WHERE investor_id = $1 AND property_id = $2;`,
   const investmentID = selectInvestmentID.rows[0].id;
 
   const postEvent = `
-  INSERT INTO events (event_date, event_type, event_amount, notes, investment_id, to_date, from_date) VALUES($1, $2, $3, $4, $5, $6, $7)
+  INSERT INTO events (event_date, event_type, event_amount, notes, investment_id, to, from) VALUES($1, $2, $3, $4, $5, $6, $7)
   RETURNING *`;
 
   const results = await dataBasePool.query(postEvent, [
