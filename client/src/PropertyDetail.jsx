@@ -1,4 +1,5 @@
 import "./css/index.css";
+import { MdOutlineUploadFile } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -10,6 +11,7 @@ function PropertyDetail() {
   const [propertyData, setPropertyData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [addInvestor, setAddInvestor] = useState(false);
+  
 
   let { id } = useParams();
 
@@ -24,8 +26,6 @@ function PropertyDetail() {
   useEffect(() => {
     fetchProperty();
   }, []);
-
-
 
   const formatNumbers = (number) => {
     const usdFormatter = new Intl.NumberFormat("en-US", {
@@ -53,10 +53,10 @@ function PropertyDetail() {
       body: JSON.stringify(payload),
     });
   };
-  
-  
 
   console.log(propertyData);
+
+  
 
   return (
     <>
@@ -69,22 +69,53 @@ function PropertyDetail() {
                 id="big-font"
                 type="text"
                 value={propertyData?.property_name}
-                onChange={(e) => handleEditField('property_name', e.target.value)}
+                onChange={(e) =>
+                  handleEditField("property_name", e.target.value)
+                }
               ></input>
 
               <div className="propertyDetail_flex">
-                <img
-                  src={propertyData.secure_url}
-                  max-width={"500px"}
-                  max-height={"200px"}
-                  width={"500px"}
-                  height={"200px"}
+                <div
                   style={{
+                    width: "500px",
+                    maxHeight: "200px",
+                    maxWidth: "500px",
+                    height: "200px",
                     borderRadius: "8px",
                     boxShadow: "4px 4px 5px 1px  #1B3C77BF",
+                   
                   }}
-                  alt="property_picture"
-                />
+                >
+
+                  <>
+                  
+                    <img
+                      src={propertyData.secure_url}
+                      max-width={"100%"}
+                      max-height={"100%"}
+                      width={"475px"}
+                      height={"200px"}
+                      alt="property_picture"
+                      
+                  />
+                  
+                      <label htmlFor="pic_upload">
+                        <MdOutlineUploadFile
+                          fontSize={"75px"}
+                          color="#2569C0"
+                          style={{ cursor: "pointer" , zIndex: '9999', position: 'absolute', top: '15px', bottom: '50px'}}
+                        />
+                      </label>
+                      <input
+                        id="pic_upload"
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        
+                      ></input>
+                    </>
+                  
+                </div>
 
                 <div className="propertyDetail_fin_flex">
                   <div>

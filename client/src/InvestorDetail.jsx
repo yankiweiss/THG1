@@ -26,7 +26,15 @@ function InvestorDetail() {
 
   const events = investorData?.events || [];
 
-  console.log(events)
+  const sortedEvents = events.sort((a, b) => {
+    const getDate = (obj) => new Date(obj.event_date ?? obj.from ?? obj.to);
+
+    return getDate(a) - getDate(b)
+  })
+
+
+
+  console.log(sortedEvents)
 
   const initialInvestment = Number(investorData?.invested_amount);
   const closingDate = investorData?.closing_date;
@@ -265,8 +273,9 @@ function InvestorDetail() {
 
           <div className="capital_breakdown">
             <div className="cb-top">
-              <label>Select Year</label>
+           
               <select onChange={(e) => setddSelectedYear(e.target.value)}>
+                <option selected disabled>Select Year</option>
                 {[...years].map((year) => (
                   <option value={year}>{year}</option>
                 ))}
@@ -317,8 +326,10 @@ function InvestorDetail() {
                     </tr>
                   </thead>
                   <tbody>
-                    {investorData?.events?.length > 0 ? (
-                     investorData?.events?.map((evt) => (
+
+              
+                    {sortedEvents?.length > 0 ? (
+                     sortedEvents?.map((evt) => (
                         <tr>
                           {evt.event_date === null ? (
                             <td>

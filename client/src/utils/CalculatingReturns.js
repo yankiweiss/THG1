@@ -89,12 +89,18 @@ const expectedQuarterReturns = (
   // overall timeline from closing_date to date.
   const timelineArray = [];
 
+  console.log(timelineArray)
+
   const chartJS = [];
+
+  console.log(chartJS)
 
   const years = eachYearOfInterval({
     start: new Date(closingDate),
     end: new Date(),
   });
+
+  // below i can make  more simplified.
 
   years.forEach((year) => {
     timelineArray.push({
@@ -149,6 +155,8 @@ const expectedQuarterReturns = (
       date: evt.event_date,
     }),
   );
+
+  // need to understand below line.
 
   const endDate = timelineArray[timelineArray.length - 1].quarters[3].end;
 
@@ -205,6 +213,7 @@ selectedYearQuarters.quarters.forEach((q) => {
 
 const expectedReturnAmount = (timeline) => {
   let totalExpected = 0;
+  console.log(timeline)
   timeline.forEach((year) => {
     year.quarters.forEach((q) => {
       totalExpected += Number(q.expectedReturn);
