@@ -9,12 +9,15 @@ import InvestorDetail from "./InvestorDetail";
 import "./css/index.css";
 import AddDeal from "./AddDeal";
 import Test from './Test'
+import ScrollToTop from "./ScrollToTop";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
     <>
       <div className="app">
         <Navbar />
+        <ScrollToTop/>
 
         <Routes>
           <Route path="/" element={<Properties />} />
@@ -23,7 +26,11 @@ function App() {
 
           <Route path="/addDeal" element={<AddDeal/>} />
 
+          <Route path="/dashboard" element={<Dashboard/>} />
+
           <Route path="/test" element={<Test/>}/>
+
+           <Route path="/reports" element={<Reports />} />
          
           <Route
             path="/investorDetail/:propertyId/:investorId"

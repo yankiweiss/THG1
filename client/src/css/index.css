@@ -1,5 +1,9 @@
+:root {
+  --sidebar-width: 250px;
+}
+
 body {
-  background: transparent linear-gradient(90deg, #1642891a 0%, #1b52ab33 100%)
+  background: transparent linear-gradient(90deg, #2347811a 0%, #2b5ba833 100%)
     0% 0% no-repeat padding-box;
   font-family:
     "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
@@ -8,28 +12,31 @@ body {
 
 .fw600 {
   font-weight: 600;
-  
 }
 
-button{
+button {
   background-color: transparent;
   border: none;
   outline: none;
 }
 
 /* will need to create a new flex for the navbar and the rest of the website */
-.app {
-  display: flex;
 
-  justify-content: space-between;
+.main-content {
+  margin-left: (var(--sidebar-width));
+  width: calc(100% - var(--sidebar-width));
+  min-height: 100vh;
 }
 
 .navbar {
+  inset: 0 auto 0 0;
+  width: var(--sidebar-width);
   position: fixed;
+  flex-shrink: 0;
+  height: 80vh;
   top: 0;
   left: 0;
-  max-width: 12%;
-  width: 12%;
+
   min-height: 100vh;
   background: #e2eeff;
   margin: 15px;
@@ -47,6 +54,32 @@ button{
 /*.logo_company_name {
   margin-top: 2em;
 }*/
+.property_table {
+  margin-top: 50px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+table {
+  background-color: white;
+}
+
+th {
+  font-size: 20px;
+}
+
+th,
+td {
+  border-bottom: #ccc 1px solid;
+  height: 50px;
+}
+td {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+}
 
 .icon {
   box-sizing: content-box;
@@ -80,7 +113,6 @@ button{
   margin-top: 50px;
   margin-left: 18vw;
   min-height: 100vh;
- 
 }
 
 .search input {
@@ -91,7 +123,6 @@ button{
 
 .search input::placeholder {
   color: #aabfe2;
-  
 }
 
 .search {
@@ -164,22 +195,20 @@ button{
   align-items: center;
   width: 100%;
 }
-.inv-details{
+.inv-details {
   display: flex;
   justify-content: start;
 }
 
-.delete{
+.delete {
   margin-right: 50px;
   cursor: pointer;
   display: none;
-
 }
 
-.prop_wrapper:hover .delete{
+.prop_wrapper:hover .delete {
   display: block;
 }
-
 
 .info {
   display: flex;
@@ -296,7 +325,7 @@ button{
   max-width: 100%;
   width: 100%;
   gap: 100px;
- 
+
   align-items: center;
   flex-wrap: wrap;
   height: 350px;
@@ -420,8 +449,7 @@ button{
   font-weight: 600;
   display: flex;
   align-items: center;
-  justify-content: center
-  ;
+  justify-content: center;
   gap: 10px;
   box-shadow: 0px 3px 7px #1b3c77bf;
 }
@@ -481,14 +509,14 @@ a:visited {
   max-width: 75vw;
   width: 100%;
   background: #f0f6ff;
-  height: 50vh;
+  height: 500px;
   margin-top: 75px;
   border-radius: 8px;
   box-shadow: 0px 3px 7px #1b3c77bf;
   padding-bottom: 50px;
 }
 
-.cb-top{
+.cb-top {
   display: flex;
   width: 100%;
   padding: 25px;
@@ -506,10 +534,11 @@ a:visited {
 .quarterly_breakdown {
   box-shadow: 0px 3px 7px #1b3c77bf;
   border-radius: 6px;
+  height: 400px;
   width: 750px;
+  min-height: 320px;
   background: transparent linear-gradient(90deg, #1642891a 0%, #1b52ab33 100%)
     0% 0% no-repeat padding-box;
-    
 }
 
 .event_table {
@@ -521,22 +550,13 @@ a:visited {
   min-height: 100%;
 }
 
-
-
-
-
-tr td
- {
+tr td {
   padding: 0.5rem 1rem;
 
   width: auto;
-  
 }
 
-table{
-  border-collapse: collapse;
-}
-textarea{
+textarea {
   border: none;
   background-color: transparent;
   outline: none;
@@ -546,8 +566,6 @@ tr:nth-child(even) {
   background-color: #cae0ff;
   /* or any other color */
 }
-
-
 
 tbody tr:hover {
   background-color: rgb(236, 236, 236);
@@ -568,30 +586,26 @@ table td {
   font-weight: 600;
 }
 
-.add-event-form{
- 
- 
-  
+.add-event-form {
   border-radius: 8px;
   display: flex;
   justify-content: space-evenly;
 }
-.add-form-container{
+.add-form-container {
   margin-top: 100px;
-   
 }
 
-.add_event_btns{
+.add_event_btns {
   display: flex;
   align-items: center;
   justify-content: end;
   gap: 25px;
 }
-.add_event_form_wrapper{
+.add_event_form_wrapper {
   display: flex;
   flex-direction: column;
-   width: 75vw;
- padding: 25px;
+  width: 75vw;
+  padding: 25px;
   height: auto;
   background-color: #f0f6ff;
   box-shadow: 0px 3px 7px #1b3c77bf;
@@ -642,8 +656,7 @@ table td {
 .prop-info-image {
   display: flex;
   margin-top: 55px;
- max-width: 65vw;
-  
+  max-width: 65vw;
 }
 
 .deal-input {
@@ -676,10 +689,8 @@ table td {
   gap: 20px;
   align-items: center;
   border-radius: 8px;
- padding: 0px 25px;
+  padding: 0px 25px;
   justify-content: space-between;
-  
- 
 }
 .investor_form {
   display: flex;
@@ -695,29 +706,29 @@ table td {
   height: 114px;
   width: 75%;
   margin-bottom: 25px;
-  background: #F7FAFF 0% 0% no-repeat padding-box;
-  box-shadow: 0px 1px 7px #002B79B4;
+  background: #f7faff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 1px 7px #002b79b4;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 25px;
 }
-.add-investor-btn{
-  border: 1.5px solid #2F80EB;
-  box-shadow: inset 0px 3px 6px #00000000, 0px 1px 7px #002B79B4;
+.add-investor-btn {
+  border: 1.5px solid #2f80eb;
+  box-shadow:
+    inset 0px 3px 6px #00000000,
+    0px 1px 7px #002b79b4;
   border-radius: 8px;
-  color: #2569C0;
+  color: #2569c0;
   padding: 2px 10px;
- 
 }
-.investor_heading-wording{
+.investor_heading-wording {
   display: flex;
   gap: 25px;
   align-items: center;
 }
 
-.submitBtn{ 
-  
+.submitBtn {
   color: #2569c0;
   font-weight: 600;
   border-radius: 21px;
@@ -727,9 +738,7 @@ table td {
   padding: 18px 33px;
   display: flex;
   align-items: center;
- margin: 25px auto;
- 
-
+  margin: 25px auto;
 }
 
 .submitBtn:focus {
@@ -750,12 +759,12 @@ table td {
   left: 0;
   width: 100%;
   height: 100%;
-  
-  display: none;    /* Hidden until an image is picked */
-  z-index: 100;      /* Places it above the text and icon */
+
+  display: none; /* Hidden until an image is picked */
+  z-index: 100; /* Places it above the text and icon */
   pointer-events: none; /* Allows you to still click "through" it if needed */
 }
-.loading{
+.loading {
   color: rgb(1, 1, 68);
   display: flex;
   justify-content: center;
@@ -767,22 +776,17 @@ table td {
 
 /* test page */
 
-.input{
+.input {
   background-color: transparent;
   border: none;
   outline: none;
   text-align: center;
-
-
 }
-.input:focus{
-  
+.input:focus {
   border: 0.5px solid rgba(173, 216, 230, 0.548);
   border-radius: 8px;
 }
 
-#big-font{
+#big-font {
   font-size: 1.5rem;
 }
-
-

@@ -4,10 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import {
-  actualReturns,
-  expectedQuarterReturns,
-  investmentToDate,
+  expectedAndActualQuarterReturns,
   investmentActualReturn,
+  investmentToDate,
   expectedReturnAmount,
 } from "./utils/CalculatingReturns.js";
 import { format, parseISO } from "date-fns";
@@ -29,12 +28,8 @@ function InvestorDetail() {
   const sortedEvents = events.sort((a, b) => {
     const getDate = (obj) => new Date(obj.event_date ?? obj.from ?? obj.to);
 
-    return getDate(a) - getDate(b)
-  })
-
-
-
-  console.log(sortedEvents)
+    return getDate(a) - getDate(b);
+  });
 
   const initialInvestment = Number(investorData?.invested_amount);
   const closingDate = investorData?.closing_date;
@@ -44,7 +39,9 @@ function InvestorDetail() {
   let { propertyId, investorId } = useParams();
 
   const fetchProperty = async () => {
-    await fetch(`https://thg-1.vercel.app/api/investor/${propertyId}/${investorId}`)
+    await fetch(
+      `https://thg-1.vercel.app/api/investor/${propertyId}/${investorId}`,
+    )
       .then((res) => res.json())
       .then((data) => setInvestorData(data));
     setLoading(true);
@@ -61,14 +58,14 @@ function InvestorDetail() {
   }, [addEvent]);
 
   const expectedData = closingDate
-    ? expectedQuarterReturns(
+    ? expectedAndActualQuarterReturns(
         ddSelectedYear,
         initialInvestment,
         events,
         perfReturn,
         closingDate,
       )
-    : { chartJS: [], totalExpected: 0 };
+    : { chartData: [], totalExpected: 0 };
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
@@ -107,16 +104,18 @@ function InvestorDetail() {
     datasets: [
       {
         label: "Actual Return",
-        data: actualReturns(events, ddSelectedYear),
-        backgroundColor: "#6B47FF",
-        barThickness: 20,
+        data: expectedData.actualReturnData,
+        backgroundColor: "#003505",
+        barPercentage: 0.4, // controls width of each bar
+        categoryPercentage: 0.8,
       },
 
       {
         label: "Expected Return",
-        data: expectedData.chartJS,
-        backgroundColor: "#FF8548",
-        barThickness: 20,
+        data: expectedData.expectedReturnData,
+        backgroundColor: "#00026d",
+        barPercentage: 0.4, // controls width of each bar
+        categoryPercentage: 0.8, // controls space between groups
       },
       //{
       //  label: "Missing Return",
@@ -133,6 +132,8 @@ function InvestorDetail() {
   };
 
   const barChartOptions = {
+    maintainAspectRatio: false,
+
     scales: {
       x: {
         type: "time",
@@ -140,12 +141,30 @@ function InvestorDetail() {
           unit: "quarter",
         },
       },
+
       y: {
         ticks: {
           callback: function (value) {
             return "$" + value;
           },
         },
+      },
+    },
+
+    plugins: {
+      datalabels: {
+        display: true,
+        color: "#000",
+        anchor: "end",
+        align: "top",
+        formatter: (value) => `$${value.y.toLocaleString()}`,
+        font: {
+          weight: "bold",
+          size: 12,
+        },
+      },
+      legend: {
+        position: "top",
       },
     },
   };
@@ -167,29 +186,25 @@ function InvestorDetail() {
     return usdFormatter.format(number);
   };
 
-  const handleEditField = async (field , value) => {
-
+  const handleEditField = async (field, value) => {
     setInvestorData((prev) => ({
       ...prev,
-    [field] : value
-    }))
+      [field]: value,
+    }));
 
     const payload = {
       field,
-      value
-    }
+      value,
+    };
 
     await fetch(`https://thg-1.vercel.app/api/investor/${investorId}`, {
-      method: 'PUT',
-       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  };
 
-    })
-
-
-  }
-
-  console.log(investorData)
+  console.log(investorData);
 
   return (
     <>
@@ -213,16 +228,14 @@ function InvestorDetail() {
                 <h6 style={{ color: "#2570C0" }} className="fw600">
                   INVESTOR
                 </h6>
-                
-               <input
-               id="big-font"
-               style={{width: '95%'}}
-            className="input fw600 "
-               value={investorData.name}
-               onChange={(e) => handleEditField('name', e.target.value)}
-               >
-               </input>
-              
+
+                <input
+                  id="big-font"
+                  style={{ width: "95%" }}
+                  className="input fw600 "
+                  value={investorData.name}
+                  onChange={(e) => handleEditField("name", e.target.value)}
+                ></input>
               </div>
               <div className="ID-investor-details">
                 <div className="column-flex">
@@ -239,7 +252,14 @@ function InvestorDetail() {
                     INVESTMENT<br></br> TO DATE{" "}
                   </h6>
                   <h6 className="fw600">
-                    {formatNumbers(investmentToDate(initialInvestment, events))}
+                    <h6 className="fw600">
+                      {formatNumbers(
+                        investmentToDate(
+                          investorData?.invested_amount,
+                          investorData?.events,
+                        ),
+                      )}
+                    </h6>
                   </h6>
                 </div>
 
@@ -247,9 +267,7 @@ function InvestorDetail() {
                   <h6 className="ID-text fw600">
                     PERF <br></br>RETURN
                   </h6>
-                  <h6 className="fw600">
-                    {investorData?.perf_return}%
-                  </h6>
+                  <h6 className="fw600">{investorData?.perf_return}%</h6>
                 </div>
                 <div className="column-flex">
                   <h6 className="ID-text fw600">
@@ -264,7 +282,14 @@ function InvestorDetail() {
                     EXPECTED <br></br>RETURN
                   </h6>
                   <h6 className="fw600">
-                    {formatNumbers(expectedData.totalExpected)}
+                    {formatNumbers(
+                      expectedReturnAmount(
+                        investorData?.closing_date,
+                        investorData?.invested_amount,
+                        investorData?.events,
+                        investorData?.perf_return
+                      ),
+                    )}
                   </h6>
                 </div>
               </div>
@@ -273,9 +298,10 @@ function InvestorDetail() {
 
           <div className="capital_breakdown">
             <div className="cb-top">
-           
               <select onChange={(e) => setddSelectedYear(e.target.value)}>
-                <option selected disabled>Select Year</option>
+                <option selected disabled>
+                  Select Year
+                </option>
                 {[...years].map((year) => (
                   <option value={year}>{year}</option>
                 ))}
@@ -326,10 +352,19 @@ function InvestorDetail() {
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td>
+                        {format(
+                          parseISO(investorData?.closing_date),
+                          "MM/dd/yyyy",
+                        )}
+                      </td>
+                      <td>{formatNumbers(investorData?.invested_amount)}</td>
+                      <td>Initial Investment</td>
+                    </tr>
 
-              
                     {sortedEvents?.length > 0 ? (
-                     sortedEvents?.map((evt) => (
+                      sortedEvents?.map((evt) => (
                         <tr>
                           {evt.event_date === null ? (
                             <td>

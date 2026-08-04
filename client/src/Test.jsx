@@ -1,9 +1,19 @@
-const array = [1, 2, 3, ];
+// basic object creation 
+// properties definition and key and value definition
+// access the value with dot notation.
+// add properties on the fly to a object.
+// if two words need to have with quotes.
 
-console.log(array)
+const user = {
+name : 'Jacob',
+age: 100
+}
 
-console.log('yes',...array)
+const keys = Object.entries(user)
 
+
+
+console.log(keys)
 
 
 

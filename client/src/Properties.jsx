@@ -209,11 +209,21 @@ function Properties() {
                 </div>
               ))}
             </section>
+
+          
+         
           </div>
+
+
         ) : (
           <Loading />
         )}
+
+      
       </div>
+
+
+      
     </>
   );
 }

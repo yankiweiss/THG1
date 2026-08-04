@@ -8,7 +8,7 @@ import MyBarChart from "./Chatrs";
 import logo from "../src/assets/logo.png";
 import "./css/index.css";
 import { useState } from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -18,25 +18,35 @@ function Navbar() {
   return (
     <>
       <div className="navbar">
-      <div >
+        <div>
           <img
             src={logo}
             alt="Company Logo"
-            style={{ maxWidth: "99%",  padding: '10% 15%'}}
+            style={{ maxWidth: "99%", padding: "10% 15%" }}
             onClick={() => navigate("/")}
           />
-          </div>
-      
+        </div>
 
         <div className="icons">
-          <Link  to={'/'} style={{ textDecoration: 'none' }}><button
-            className={`icon ${activeIcon === "home" ? "active" : " "} `}
-            onClick={() => setActiveIcon("home")}
-          >
-            <BiHomeAlt />
+          <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+            <button
+              className={`icon ${activeIcon === "file" ? "active" : " "} `}
+              onClick={() => setActiveIcon("file")}
+            >
+              <LuFiles /> <span>Dashboard</span>
+            </button>
+          </Link>
 
-           <span>Properties</span> 
-          </button></Link>
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <button
+              className={`icon ${activeIcon === "home" ? "active" : " "} `}
+              onClick={() => setActiveIcon("home")}
+            >
+              <BiHomeAlt />
+
+              <span>Properties</span>
+            </button>
+          </Link>
 
           <button
             className={`icon ${activeIcon === "file" ? "active" : " "} `}
@@ -45,19 +55,23 @@ function Navbar() {
             <LuFiles /> <span>Files</span>
           </button>
 
+            <Link to={"/reports"} style={{ textDecoration: "none" }}>
           <button
             className={`icon ${activeIcon === "chart" ? "active" : " "} `}
             onClick={() => setActiveIcon("chart")}
           >
             <LuChartColumnDecreasing /> <span>Reports</span>
           </button>
-<Link to={'/addDeal'}>
-          <button
-            className={`icon ${activeIcon === "plus" ? "active" : " "} `}
-            onClick={() => setActiveIcon("plus")}
-          >
-            <FiPlus /> <span>Add Deal</span>
-          </button>
+          </Link>
+
+
+          <Link to={"/addDeal"}>
+            <button
+              className={`icon ${activeIcon === "plus" ? "active" : " "} `}
+              onClick={() => setActiveIcon("plus")}
+            >
+              <FiPlus /> <span>Add Deal</span>
+            </button>
           </Link>
         </div>
 
