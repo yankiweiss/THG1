@@ -12,6 +12,7 @@ import {
 import { format, parseISO } from "date-fns";
 import Loading from "./Loading.jsx";
 import currency from "currency.js";
+import { IoSettingsOutline } from "react-icons/io5";
 
 function InvestorDetail() {
   const now = new Date();
@@ -22,6 +23,7 @@ function InvestorDetail() {
   const targetRef = useRef(null);
   const [ddSelectedYear, setddSelectedYear] = useState(year);
   const [loading, setLoading] = useState(false);
+  const [showSideModel, SetShowSideModel] = useState(false);
 
   const events = investorData?.events || [];
 
@@ -287,11 +289,44 @@ function InvestorDetail() {
                         investorData?.closing_date,
                         investorData?.invested_amount,
                         investorData?.events,
-                        investorData?.perf_return
+                        investorData?.perf_return,
                       ),
                     )}
                   </h6>
                 </div>
+              </div>
+
+              <button type="button" onClick={() => SetShowSideModel(true)}>
+                <IoSettingsOutline size={35} color="black" />
+              </button>
+
+              <div className={showSideModel ? "side_model" : "hidden"}>
+
+                 <button type="button" onClick={() => SetShowSideModel(false)}>
+                  X
+                </button>
+
+                <div>
+                {[...years].map(year => (
+                  <>
+                  <div className="yearly_return">
+                  <div>
+                    <label>{year} Return</label>
+                    </div>
+                    <div>
+                    <input placeholder={`${investorData?.perf_return} % return`}></input>
+                    </div>
+                    </div>
+
+                   
+                  </>
+                ))}
+
+                 <button type="button">Save</button>
+
+                 </div>
+
+               
               </div>
             </div>
           </div>

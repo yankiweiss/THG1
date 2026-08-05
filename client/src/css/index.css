@@ -3,8 +3,7 @@
 }
 
 body {
-  background: transparent linear-gradient(90deg, #2347811a 0%, #2b5ba833 100%)
-    0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(90deg, #2347811a 0%, #2b5ba833 100%) 0% 0% no-repeat padding-box;
   font-family:
     "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
     Arial, "Lucida Grande", sans-serif;
@@ -60,6 +59,7 @@ button {
   border-radius: 8px;
   overflow: hidden;
 }
+
 table {
   background-color: white;
 }
@@ -73,6 +73,7 @@ td {
   border-bottom: #ccc 1px solid;
   height: 50px;
 }
+
 td {
   text-align: center;
 }
@@ -195,6 +196,7 @@ table {
   align-items: center;
   width: 100%;
 }
+
 .inv-details {
   display: flex;
   justify-content: start;
@@ -487,6 +489,22 @@ a:visited {
   box-shadow: 0px 3px 7px #1b3c77bf;
 }
 
+.side_model {
+  width: 300px;
+  height: 500px;
+  background-color: white;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+}
+.hidden{
+  display: none;
+}
+.yearly_return{
+margin: auto;
+width: 70%;
+}
+
 .ID-investor-details {
   background-color: #f0f6ff;
   display: flex;
@@ -537,8 +555,7 @@ a:visited {
   height: 400px;
   width: 750px;
   min-height: 320px;
-  background: transparent linear-gradient(90deg, #1642891a 0%, #1b52ab33 100%)
-    0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(90deg, #1642891a 0%, #1b52ab33 100%) 0% 0% no-repeat padding-box;
 }
 
 .event_table {
@@ -591,6 +608,7 @@ table td {
   display: flex;
   justify-content: space-evenly;
 }
+
 .add-form-container {
   margin-top: 100px;
 }
@@ -601,6 +619,7 @@ table td {
   justify-content: end;
   gap: 25px;
 }
+
 .add_event_form_wrapper {
   display: flex;
   flex-direction: column;
@@ -630,6 +649,7 @@ table td {
 .AD-item {
   flex-grow: 0.1;
 }
+
 .AD-item:first-child {
   flex-grow: 2;
   display: flex;
@@ -671,6 +691,7 @@ table td {
   outline: none;
   font-size: 1.5rem;
 }
+
 .AD_investor_section {
   background-color: #ffffff;
   box-shadow: 0px 2px 15px #0d26537c;
@@ -680,6 +701,7 @@ table td {
   border-radius: 8px;
   padding: 10px;
 }
+
 .investor_heading {
   display: flex;
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -692,6 +714,7 @@ table td {
   padding: 0px 25px;
   justify-content: space-between;
 }
+
 .investor_form {
   display: flex;
   align-items: center;
@@ -700,6 +723,7 @@ table td {
   width: 65vw;
   flex-wrap: wrap;
 }
+
 .upload_field {
   border: 1px solid #2f80eb;
   border-radius: 8px;
@@ -713,6 +737,7 @@ table td {
   align-items: center;
   gap: 25px;
 }
+
 .add-investor-btn {
   border: 1.5px solid #2f80eb;
   box-shadow:
@@ -722,6 +747,7 @@ table td {
   color: #2569c0;
   padding: 2px 10px;
 }
+
 .investor_heading-wording {
   display: flex;
   gap: 25px;
@@ -747,10 +773,12 @@ table td {
 }
 
 .upload_field {
-  position: relative; /* Base for the absolute image */
+  position: relative;
+  /* Base for the absolute image */
   width: 100%;
   min-height: 150px;
-  overflow: hidden; /* Keeps the image inside the borders */
+  overflow: hidden;
+  /* Keeps the image inside the borders */
 }
 
 .preview-img {
@@ -760,10 +788,14 @@ table td {
   width: 100%;
   height: 100%;
 
-  display: none; /* Hidden until an image is picked */
-  z-index: 100; /* Places it above the text and icon */
-  pointer-events: none; /* Allows you to still click "through" it if needed */
+  display: none;
+  /* Hidden until an image is picked */
+  z-index: 100;
+  /* Places it above the text and icon */
+  pointer-events: none;
+  /* Allows you to still click "through" it if needed */
 }
+
 .loading {
   color: rgb(1, 1, 68);
   display: flex;
@@ -782,6 +814,7 @@ table td {
   outline: none;
   text-align: center;
 }
+
 .input:focus {
   border: 0.5px solid rgba(173, 216, 230, 0.548);
   border-radius: 8px;

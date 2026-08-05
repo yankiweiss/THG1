@@ -27,7 +27,7 @@ export const expectedAndActualQuarterReturns = (
   const activeEndDay =
     dealOverview.endingDate < yearEnd ? dealOverview.endingDate : yearEnd;
 
-  const nonReturnEv = events.filter((event) => event.event_type !== "Return");
+  const nonReturnEv = events?.filter((event) => event.event_type !== "Return");
 
   let toYearInvestmentAmount = initialInvestment;
 
@@ -124,7 +124,7 @@ export const expectedAndActualQuarterReturns = (
     y: data.expected,
   }));
 
-  console.log(events);
+ 
 
   return { actualReturnData, expectedReturnData };
 };
@@ -134,9 +134,8 @@ const investmentToDate = (initialInvestment, events) => {
 
   toDateInvestment += Number(initialInvestment);
 
-  console.log(typeof toDateInvestment);
 
-  events.forEach((event) => {
+  events?.forEach((event)=> {
     if (event.event_type === "Return to Capital") {
       toDateInvestment -= Number(event.event_amount);
     } else if (
@@ -177,14 +176,14 @@ const expectedReturnAmount = (
 
   let expectedReturn = 0;
 
-  const nonReturnEv = events.filter((event) => event.event_type !== "Return");
+  const nonReturnEv = events?.filter((event) => event.event_type !== "Return");
 
   for (
     let i = dealOverview.start;
     i <= dealOverview.end;
     i.setDate(i.getDate() + 1)
   ) {
-    nonReturnEv.forEach((event) => {
+    nonReturnEv?.forEach((event) => {
       const eventDate = parseISO(event.event_date);
 
       if (eventDate.toDateString() === i.toDateString()) {
@@ -202,7 +201,6 @@ const expectedReturnAmount = (
     const dayReturn = (investmentNow * (perfReturn / 100)) / 365;
     expectedReturn += Number(dayReturn);
 
-    console.log(i, investmentNow);
   }
 
   return expectedReturn;
