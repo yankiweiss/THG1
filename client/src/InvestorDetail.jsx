@@ -123,7 +123,10 @@ useEffect(() => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
+
     const allEventData = Object.fromEntries(formData);
+
+   
 
     const payload = {
       ...allEventData,
@@ -131,7 +134,9 @@ useEffect(() => {
       investorId,
     };
 
-    const res = await fetch("/api/event", {
+     console.log(payload)
+
+    const res = await fetch("http://localhost:3000/api/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
