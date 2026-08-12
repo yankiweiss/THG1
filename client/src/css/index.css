@@ -3,7 +3,8 @@
 }
 
 body {
-  background: transparent linear-gradient(90deg, #2347811a 0%, #2b5ba833 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(90deg, #2347811a 0%, #2b5ba833 100%)
+    0% 0% no-repeat padding-box;
   font-family:
     "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
     Arial, "Lucida Grande", sans-serif;
@@ -469,17 +470,27 @@ a:visited {
 }
 
 .top-flex {
+  max-height: 146px;
   display: flex;
-  min-height: 146px;
   height: 146px;
   gap: 25px;
-  flex-wrap: wrap;
-  width: 100%;
+ 
+  max-height: 146px;
+}
+.box_style {
+  background-color: #f0f6ff;
+  border-radius: 8px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+}
+.overflow_y_scroll {
+  overflow-y: scroll;
+}
+.perf_return {
+  max-height: 100%;
 }
 
 .ID_investor_name {
-  max-width: 300px;
-  width: 100%;
+
   background-color: #f0f6ff;
   border-radius: 8px;
   display: flex;
@@ -497,12 +508,16 @@ a:visited {
   top: 10px;
   right: 0px;
 }
-.hidden{
+.hidden {
   display: none;
 }
-.yearly_return{
-margin: auto;
-width: 70%;
+.yearly_return {
+  margin: auto;
+  width: 70%;
+}
+.sticky{
+  position: sticky;
+  top: 0px;
 }
 
 .ID-investor-details {
@@ -512,8 +527,7 @@ width: 70%;
   border-radius: 8px;
   box-shadow: 0px 3px 7px #1b3c77bf;
   justify-content: center;
-
-  min-width: 35vw;
+ padding: 10px;
 }
 
 .ID-text {
@@ -555,7 +569,8 @@ width: 70%;
   height: 400px;
   width: 750px;
   min-height: 320px;
-  background: transparent linear-gradient(90deg, #1642891a 0%, #1b52ab33 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(90deg, #1642891a 0%, #1b52ab33 100%)
+    0% 0% no-repeat padding-box;
 }
 
 .event_table {

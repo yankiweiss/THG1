@@ -5,17 +5,19 @@ dotenv.config();
 import cors from "cors";
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.json());
-app.use(cors());
+
 
 import propertyRouter from "./routes/property.js";
 import eventRouter from "./routes/event.js";
 import investorRouter from "./routes/investor.js";
 import investmentsRouter from "./routes/investments.js";
+import investmentsReturnRouter from "./routes/investmentReturn.js";
 import testRouter from "./routes/test.js";
 
 app.use("/api/properties", propertyRouter);
+app.use("/api/investmentReturn", investmentsReturnRouter);
 app.use("/api/event", eventRouter);
 app.use("/api/investor", investorRouter);
 app.use("/api/investments", investmentsRouter);

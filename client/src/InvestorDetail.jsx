@@ -17,13 +17,13 @@ import { IoSettingsOutline } from "react-icons/io5";
 function InvestorDetail() {
   const now = new Date();
   const year = now.getFullYear();
-  const [investorData, setInvestorData] = useState([]);
+  const [investorData, setInvestorData] = useState();
   const [addEvent, SetAddEvent] = useState(false);
   const [eventType, setEventType] = useState("Investment");
   const targetRef = useRef(null);
   const [ddSelectedYear, setddSelectedYear] = useState(year);
   const [loading, setLoading] = useState(false);
-  const [showSideModel, SetShowSideModel] = useState(false);
+  const [yearlyReturn, setYearlyReturn] = useState();
 
   const events = investorData?.events || [];
 
@@ -40,14 +40,32 @@ function InvestorDetail() {
 
   let { propertyId, investorId } = useParams();
 
+  console.log(yearlyReturn);
+
   const fetchProperty = async () => {
-    await fetch(
-      `https://thg-1.vercel.app/api/investor/${propertyId}/${investorId}`,
-    )
-      .then((res) => res.json())
-      .then((data) => setInvestorData(data));
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/investor/${propertyId}/${investorId}`
+    );
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("Backend error:", errorData);
+      return;
+    }
+
+    const data = await res.json();
+
+    console.log("Investor data:", data);
+
+    setYearlyReturn(data?.investment_returns ?? {});
+    setInvestorData(data);
+  } catch (error) {
+    console.error("Fetch error:", error);
+  } finally {
     setLoading(true);
-  };
+  }
+};
 
   useEffect(() => {
     fetchProperty();
@@ -59,6 +77,14 @@ function InvestorDetail() {
     }
   }, [addEvent]);
 
+  const yearsY = events.map((event) => {
+    const date = event.event_date ?? event.to ?? event.from;
+
+    return new Date(date).getFullYear();
+  });
+
+  const years = new Set(yearsY);
+
   const expectedData = closingDate
     ? expectedAndActualQuarterReturns(
         ddSelectedYear,
@@ -68,6 +94,26 @@ function InvestorDetail() {
         closingDate,
       )
     : { chartData: [], totalExpected: 0 };
+
+  const createUpdateYearlyReturn = async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/investmentReturn/${propertyId}/${investorId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          property_id: propertyId,
+          investor_id: investorId,
+        }),
+      },
+    );
+
+    const result = await response.json();
+
+    console.log(result);
+  };
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
@@ -153,6 +199,7 @@ function InvestorDetail() {
       },
     },
 
+
     plugins: {
       datalabels: {
         display: true,
@@ -170,14 +217,6 @@ function InvestorDetail() {
       },
     },
   };
-
-  const yearsY = events.map((event) => {
-    const date = event.event_date ?? event.to ?? event.from;
-
-    return new Date(date).getFullYear();
-  });
-
-  const years = new Set(yearsY);
 
   const formatNumbers = (number) => {
     const usdFormatter = new Intl.NumberFormat("en-US", {
@@ -205,6 +244,10 @@ function InvestorDetail() {
       body: JSON.stringify(payload),
     });
   };
+
+ 
+
+
 
   console.log(investorData);
 
@@ -235,7 +278,7 @@ function InvestorDetail() {
                   id="big-font"
                   style={{ width: "95%" }}
                   className="input fw600 "
-                  value={investorData.name}
+                  value={investorData?.name}
                   onChange={(e) => handleEditField("name", e.target.value)}
                 ></input>
               </div>
@@ -267,12 +310,6 @@ function InvestorDetail() {
 
                 <div className="column-flex">
                   <h6 className="ID-text fw600">
-                    PERF <br></br>RETURN
-                  </h6>
-                  <h6 className="fw600">{investorData?.perf_return}%</h6>
-                </div>
-                <div className="column-flex">
-                  <h6 className="ID-text fw600">
                     ACTUAL<br></br> RETURN
                   </h6>
                   <h6 className="fw600">
@@ -296,38 +333,7 @@ function InvestorDetail() {
                 </div>
               </div>
 
-              <button type="button" onClick={() => SetShowSideModel(true)}>
-                <IoSettingsOutline size={35} color="black" />
-              </button>
-
-              <div className={showSideModel ? "side_model" : "hidden"}>
-
-                 <button type="button" onClick={() => SetShowSideModel(false)}>
-                  X
-                </button>
-
-                <div>
-                {[...years].map(year => (
-                  <>
-                  <div className="yearly_return">
-                  <div>
-                    <label>{year} Return</label>
-                    </div>
-                    <div>
-                    <input placeholder={`${investorData?.perf_return} % return`}></input>
-                    </div>
-                    </div>
-
-                   
-                  </>
-                ))}
-
-                 <button type="button">Save</button>
-
-                 </div>
-
-               
-              </div>
+            
             </div>
           </div>
 
@@ -553,6 +559,13 @@ function InvestorDetail() {
               </div>
             </>
           )}
+
+          <button
+            type="button"
+            onClick={() => createUpdateYearlyReturn(investorData)}
+          >
+            Test Investment Return API{" "}
+          </button>
         </div>
       ) : (
         <Loading />

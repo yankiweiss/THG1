@@ -3,27 +3,27 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const connectionString = process.env.DATABASE_URL;
-if (!connectionString) {
-  console.error("Missing DATABASE_URL environment variable");
-}
+console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
 
 const dataBasePool = new Pool({
-  connectionString,
-});
+  connectionString: process.env.DATABASE_URL
+})
 
-//import dotenv from 'dotenv';
-//
-//dotenv.config();
-//
-//import { Pool , types} from 'pg';
-//
-//types.setTypeParser(1082, (value) => value);
-//
-//const dataBasePool = new Pool({
-//    connectionString: process.env.DATABASE_URL,
-//});
-//
-//
-//
+dataBasePool
+  .query("SELECT NOW()")
+  .then((result) => {
+    console.log("NEON CONNECTED:", result.rows[0]);
+  })
+  .catch((error) => {
+    console.error("NEON CONNECTION FAILED:", error);
+  });
+
+dataBasePool.on("error", (error) => {
+  console.error("Postgres pool error:", error);
+})
+
+
+
+
+
 export default dataBasePool;

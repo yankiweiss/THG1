@@ -155,7 +155,7 @@ const deleteProperty = async (req, res) => {
       DELETE FROM properties
       WHERE id = $1
        RETURNING *`,
-       [propertyId]
+      [propertyId],
     );
 
     res.status(200).json(deleteById.rows[0]);

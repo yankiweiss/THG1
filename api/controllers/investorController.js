@@ -29,38 +29,38 @@ const addingInvestorToProp = async (req, res) => {
 const getInvestorByID = async (req, res) => {
   const { propertyId, investorId } = req.params;
 
-  try {
-    const response = await dataBasePool.query(
-      `
-      SELECT inv.perf_return,
-      inv.invested_amount,
-  i.name AS name,
-  p.property_name AS property_name,
-  p.secure_url AS image_url,
-  p.closing_date AS closing_date,
-  json_agg(json_build_object('event_date', e.event_date, 'event_amount', e.event_amount, 'event_type', e.event_type, 'from',e.from, 'to', e.to)) 
-  FILTER (WHERE e.id IS NOT NULL) AS events
-  FROM investments inv 
-  INNER JOIN investors i 
-  ON i.id = inv.investor_id
-  INNER JOIN properties p 
-  ON p.id = inv.property_id 
-  LEFT JOIN events e 
-  ON e.investment_id = inv.id 
-  WHERE inv.investor_id = $1 
-  AND inv.property_id = $2
-  GROUP BY inv.id, i.name, p.property_name, p.secure_url, p.closing_date
-  `,
-      [investorId, propertyId],
-    );
+  const getAllData = `
+  SELECT 
+  investments.id AS investment_id, 
+  investments.perf_return,
+  investments.invested_amount,
+  p.property_name,
+  p.purchase_price,
+  p.closing_date,
+  i.name
+  FROM investments
+  INNER JOIN properties p
+  ON investments.property_id = p.id
+  INNER JOIN investors i
+  ON investments.investor_id = i.id
+  WHERE investments.property_id = $1 AND investments.investor_id = $2
+  `;
 
-    return res.json(response.rows[0]);
+  try {
+    const response = await dataBasePool.query(getAllData, [
+      propertyId,
+      investorId,
+    ]);
+
+    return res.json(response.rows);
   } catch (error) {
-    console.log(error);
+    console.error("DATABASE ERROR:", error);
+
+    return res.status(500).json({
+      error: error.message,
+    });
   }
 };
-
-
 
 const updateInvestorField = async (req, res) => {
   const { id } = req.params;
