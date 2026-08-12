@@ -24,8 +24,8 @@ LEFT JOIN (
                 'event_type', event_type,
                 'event_amount', event_amount,
                 'date', event_date,
-                'from_date', from_date,
-                'to_date', to_date
+                'from_date', from,
+                'to_date', to
             )
         ) AS events
     FROM events

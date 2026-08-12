@@ -31,19 +31,51 @@ const getInvestorByID = async (req, res) => {
 
   const getAllData = `
   SELECT 
+  i.name AS investor_name,
   investments.id AS investment_id, 
   investments.perf_return,
   investments.invested_amount,
   p.property_name,
   p.purchase_price,
-  p.closing_date,
-  i.name
+  to_char(p.closing_date, 'YYYY-MM-DD') AS closing_date,
+
+  COALESCE(
+    json_agg(
+      json_build_object(
+        'id', e.id,
+        'event_date', e.event_date,
+        'event_amount', e.event_amount,
+        'event_type', e.event_type,
+        'notes', e.notes,
+        'from', e.from,
+        'to', e.to
+      )
+      ORDER BY e.event_date
+    ) FILTER (WHERE e.id IS NOT NULL),
+    '[]'
+  ) AS events
+
   FROM investments
+
   INNER JOIN properties p
   ON investments.property_id = p.id
+
+  LEFT JOIN events e
+  ON e.investment_id = investments.id
+
   INNER JOIN investors i
   ON investments.investor_id = i.id
-  WHERE investments.property_id = $1 AND investments.investor_id = $2
+  WHERE investments.property_id = $1 
+  AND investments.investor_id = $2
+
+  GROUP BY
+  i.name,
+  investments.id,
+  investments.perf_return,
+  investments.invested_amount,
+  p.property_name,
+  p.purchase_price,
+  p.closing_date::date;
   `;
 
   try {
@@ -52,13 +84,46 @@ const getInvestorByID = async (req, res) => {
       investorId,
     ]);
 
-    return res.json(response.rows);
+    return res.json(response.rows[0]);
   } catch (error) {
     console.error("DATABASE ERROR:", error);
 
     return res.status(500).json({
       error: error.message,
     });
+  }
+};
+
+const getAllDeals = async (req, res) => {
+  const getAllInvestments = `
+  
+  SELECT
+  inv.invested_amount,
+  inv.perf_return,
+  inv.property_id,
+  inv.investor_id,
+  i.name AS investor_name,
+  to_char(p.closing_date, 'YYYY-MM-DD') AS closing_date,
+  p.property_name
+  
+
+  FROM investments inv
+
+  INNER JOIN properties p 
+  ON inv.property_id = p.id
+  
+  INNER JOIN investors i
+  ON inv.investor_id = i.id`;
+
+  try {
+    const result = await dataBasePool.query
+    (
+      getAllInvestments
+    )
+
+    return res.json(result.rows)
+  } catch (error) {
+    
   }
 };
 
@@ -82,4 +147,4 @@ const updateInvestorField = async (req, res) => {
   }
 };
 
-export { addingInvestorToProp, getInvestorByID, updateInvestorField };
+export { addingInvestorToProp, getInvestorByID, updateInvestorField, getAllDeals };

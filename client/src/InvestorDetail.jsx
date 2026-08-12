@@ -23,9 +23,11 @@ function InvestorDetail() {
   const targetRef = useRef(null);
   const [ddSelectedYear, setddSelectedYear] = useState(year);
   const [loading, setLoading] = useState(false);
-  const [yearlyReturn, setYearlyReturn] = useState();
+  const [yearlyReturn, setYearlyReturn] = useState({});
 
   const events = investorData?.events || [];
+
+  console.log(events)
 
   const sortedEvents = events.sort((a, b) => {
     const getDate = (obj) => new Date(obj.event_date ?? obj.from ?? obj.to);
@@ -58,7 +60,7 @@ function InvestorDetail() {
 
     console.log("Investor data:", data);
 
-    setYearlyReturn(data?.investment_returns ?? {});
+    //setYearlyReturn(data?.investment_returns ?? {});
     setInvestorData(data);
   } catch (error) {
     console.error("Fetch error:", error);
@@ -67,9 +69,11 @@ function InvestorDetail() {
   }
 };
 
-  useEffect(() => {
-    fetchProperty();
-  }, []);
+useEffect(() => {
+  fetchProperty();
+}, []);
+
+  
 
   useEffect(() => {
     if (addEvent && targetRef.current) {
@@ -249,7 +253,7 @@ function InvestorDetail() {
 
 
 
-  console.log(investorData);
+  console.log(closingDate);
 
   return (
     <>
@@ -278,7 +282,7 @@ function InvestorDetail() {
                   id="big-font"
                   style={{ width: "95%" }}
                   className="input fw600 "
-                  value={investorData?.name}
+                  value={investorData?.investor_name}
                   onChange={(e) => handleEditField("name", e.target.value)}
                 ></input>
               </div>

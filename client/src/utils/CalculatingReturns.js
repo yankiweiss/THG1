@@ -206,4 +206,10 @@ const expectedReturnAmount = (
   return expectedReturn;
 };
 
-export { investmentToDate, investmentActualReturn, expectedReturnAmount };
+
+const AllDealsReturns = (allData) => {
+console.log(allData)
+
+}
+
+export { investmentToDate, investmentActualReturn, expectedReturnAmount, AllDealsReturns };
