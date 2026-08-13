@@ -16,7 +16,7 @@ function PropertyDetail() {
   let { id } = useParams();
 
   const fetchProperty = async () => {
-    await fetch(`http://localhost:3000/api/properties/${id}`)
+    await fetch(`https://thg-1.vercel.app/api/properties/${id}`)
       .then((res) => res.json())
       .then((data) => setPropertyData(data));
 

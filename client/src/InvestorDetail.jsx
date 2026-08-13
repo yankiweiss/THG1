@@ -47,7 +47,7 @@ function InvestorDetail() {
   const fetchProperty = async () => {
   try {
     const res = await fetch(
-      `http://localhost:3000/api/investor/${propertyId}/${investorId}`
+      `https://thg-1.vercel.app/api/investor/${propertyId}/${investorId}`
     );
 
     if (!res.ok) {
@@ -101,7 +101,7 @@ useEffect(() => {
 
   const createUpdateYearlyReturn = async () => {
     const response = await fetch(
-      `http://localhost:3000/api/investmentReturn/${propertyId}/${investorId}`,
+      `https://thg-1.vercel.app/api/investmentReturn/${propertyId}/${investorId}`,
       {
         method: "POST",
         headers: {
@@ -136,7 +136,7 @@ useEffect(() => {
 
      console.log(payload)
 
-    const res = await fetch("http://localhost:3000/api/event", {
+    const res = await fetch("https://thg-1.vercel.app/api/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
