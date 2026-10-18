@@ -1,0 +1,15 @@
+{
+  "name": "thg1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "8.17.1",
+    "serverless-http": "^4.0.0"
+  }
+}
