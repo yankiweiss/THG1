@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 
 import Properties from "./Properties";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Documents from "./Documents";
 import PropertyDetail from "./PropertyDetail";
 import Reports from "./Reports";
@@ -11,15 +11,20 @@ import AddDeal from "./AddDeal";
 import Test from './Test'
 import ScrollToTop from "./ScrollToTop";
 import Dashboard from "./Dashboard";
+import Login from "./Login";
 
 function App() {
+  
+  const { pathname } = useLocation();
+   const showNavbar = pathname !== "/login";
   return (
     <>
       <div className="app">
-        <Navbar />
+        {showNavbar && <Navbar />}
         <ScrollToTop/>
 
         <Routes>
+           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Properties />} />
 
           <Route path="/properties" element={<Properties />} />
