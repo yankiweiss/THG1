@@ -3,6 +3,7 @@ import serverless from "serverless-http";
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
+import authRouter from "./routes/auth.js";
 
 const app = express();
 app.use(express.json());
@@ -15,7 +16,7 @@ app.use(cors({
     "https://thg-1.vercel.app"
     ]
 }));
-
+app.use("/api/auth", authRouter);
 
 
 import propertyRouter from "./routes/property.js";

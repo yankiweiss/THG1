@@ -1,1 +1,3 @@
-export const API_URL = "https://thg-1.vercel.app/api";
+export const API_URL = import.meta.env.DEV
+  ? "http://localhost:3000/api"
+  : "https://thg-1.vercel.app/api";
