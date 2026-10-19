@@ -2,16 +2,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useNavigate } from "react-router-dom";
 import { BiHomeAlt } from "react-icons/bi";
-import { LuFiles, LuChartColumnDecreasing } from "react-icons/lu";
+import { LuFiles, LuChartColumnDecreasing, LuLogOut } from "react-icons/lu";
 import { FiPlus } from "react-icons/fi";
 import MyBarChart from "./Chatrs";
 import logo from "../src/assets/logo.png";
 import "./css/index.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const [activeIcon, setActiveIcon] = useState(null);
 
@@ -55,15 +57,14 @@ function Navbar() {
             <LuFiles /> <span>Files</span>
           </button>
 
-            <Link to={"/reports"} style={{ textDecoration: "none" }}>
-          <button
-            className={`icon ${activeIcon === "chart" ? "active" : " "} `}
-            onClick={() => setActiveIcon("chart")}
-          >
-            <LuChartColumnDecreasing /> <span>Reports</span>
-          </button>
+          <Link to={"/reports"} style={{ textDecoration: "none" }}>
+            <button
+              className={`icon ${activeIcon === "chart" ? "active" : " "} `}
+              onClick={() => setActiveIcon("chart")}
+            >
+              <LuChartColumnDecreasing /> <span>Reports</span>
+            </button>
           </Link>
-
 
           <Link to={"/addDeal"}>
             <button
@@ -73,11 +74,18 @@ function Navbar() {
               <FiPlus /> <span>Add Deal</span>
             </button>
           </Link>
+          <button
+  className="icon logout-btn"
+  onClick={() => {
+    logout();
+    navigate("/login");
+  }}
+>
+  <LuLogOut /> <span>Log Out</span>
+</button>
         </div>
 
-        {/*<section className="log">
-          <button className="logOut">Log Out</button>
-        </section>*/}
+       
       </div>
     </>
   );

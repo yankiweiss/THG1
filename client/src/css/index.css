@@ -57,7 +57,6 @@ button {
   margin-top: 2em;
 }*/
 
-
 /* Login Page */
 .login-page {
   min-height: 100vh;
@@ -567,7 +566,7 @@ a:visited {
   display: flex;
   height: 146px;
   gap: 25px;
- 
+
   max-height: 146px;
 }
 .box_style {
@@ -583,7 +582,6 @@ a:visited {
 }
 
 .ID_investor_name {
-
   background-color: #f0f6ff;
   border-radius: 8px;
   display: flex;
@@ -608,7 +606,7 @@ a:visited {
   margin: auto;
   width: 70%;
 }
-.sticky{
+.sticky {
   position: sticky;
   top: 0px;
 }
@@ -620,7 +618,7 @@ a:visited {
   border-radius: 8px;
   box-shadow: 0px 3px 7px #1b3c77bf;
   justify-content: center;
- padding: 10px;
+  padding: 10px;
 }
 
 .ID-text {
@@ -934,8 +932,18 @@ table td {
 
 /* Reports Page */
 
-#reports_table{
+#reports_table {
   border-radius: 15px;
   padding: 10px;
   background-color: rgba(214, 214, 214, 0.342);
+}
+
+/* Log out button */
+.logout-btn {
+   background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
 }
