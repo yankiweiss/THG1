@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./css/index.css";
 import { useEffect } from "react";
+import { authFetch } from "./authFetch";
 
 import {
   AllDealsReturns
@@ -10,8 +11,9 @@ function Reports() {
   const [dealData, setDealData] = useState();
 
   const getAllDeals = async () => {
-    const url = "http://localhost:3000/api/investor";
-    const response = await fetch(url);
+    /*const url = "http://localhost:3000/api/investor";
+    const response = await fetch(url);*/
+    const response = await authFetch("/investor");
     const data = await response.json();
     setDealData(data);
   };

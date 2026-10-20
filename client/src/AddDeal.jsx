@@ -5,6 +5,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { format, parseISO, isValid } from "date-fns";
+import { authFetch } from "./authFetch";
 
 function AddDeal() {
   const navigate = useNavigate();
@@ -98,8 +99,8 @@ function AddDeal() {
 
     console.log(payload);
     try {
-      await fetch("https://thg-1.vercel.app/api/properties/addDeal", {
-        method: "POST",
+      /**await fetch("https://thg-1.vercel.app/api/properties/addDeal", {*/
+       await authFetch("/properties/addDeal", {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
