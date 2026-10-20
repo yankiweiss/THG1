@@ -80,7 +80,7 @@ const getAllProperties = async (req, res) => {
 
   console.log("query started");
 
-  console.log(process.env.DATABASE_URL);
+  //console.log(process.env.DATABASE_URL);
 
   let result;
 
