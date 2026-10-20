@@ -13,6 +13,7 @@ import { format, parseISO } from "date-fns";
 import Loading from "./Loading.jsx";
 import currency from "currency.js";
 import { IoSettingsOutline } from "react-icons/io5";
+import { authFetch } from "./authFetch";
 
 function InvestorDetail() {
   const now = new Date();
@@ -27,7 +28,7 @@ function InvestorDetail() {
 
   const events = investorData?.events || [];
 
-  console.log(events)
+  console.log(events);
 
   const sortedEvents = events.sort((a, b) => {
     const getDate = (obj) => new Date(obj.event_date ?? obj.from ?? obj.to);
@@ -45,35 +46,34 @@ function InvestorDetail() {
   console.log(yearlyReturn);
 
   const fetchProperty = async () => {
-  try {
-    const res = await fetch(
+    try {
+      /*const res = await fetch(
       `https://thg-1.vercel.app/api/investor/${propertyId}/${investorId}`
-    );
+    );*/
+      const res = await authFetch(`/investor/${propertyId}/${investorId}`);
 
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error("Backend error:", errorData);
-      return;
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("Backend error:", errorData);
+        return;
+      }
+
+      const data = await res.json();
+
+      console.log("Investor data:", data);
+
+      //setYearlyReturn(data?.investment_returns ?? {});
+      setInvestorData(data);
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      setLoading(true);
     }
+  };
 
-    const data = await res.json();
-
-    console.log("Investor data:", data);
-
-    //setYearlyReturn(data?.investment_returns ?? {});
-    setInvestorData(data);
-  } catch (error) {
-    console.error("Fetch error:", error);
-  } finally {
-    setLoading(true);
-  }
-};
-
-useEffect(() => {
-  fetchProperty();
-}, []);
-
-  
+  useEffect(() => {
+    fetchProperty();
+  }, []);
 
   useEffect(() => {
     if (addEvent && targetRef.current) {
@@ -100,8 +100,10 @@ useEffect(() => {
     : { chartData: [], totalExpected: 0 };
 
   const createUpdateYearlyReturn = async () => {
-    const response = await fetch(
-      `https://thg-1.vercel.app/api/investmentReturn/${propertyId}/${investorId}`,
+    /*const response = await fetch(
+      `https://thg-1.vercel.app/api/investmentReturn/${propertyId}/${investorId}`,*/
+    const response = await authFetch(
+      `/investmentReturn/${propertyId}/${investorId}`,
       {
         method: "POST",
         headers: {
@@ -126,17 +128,16 @@ useEffect(() => {
 
     const allEventData = Object.fromEntries(formData);
 
-   
-
     const payload = {
       ...allEventData,
       propertyId,
       investorId,
     };
 
-     console.log(payload)
+    console.log(payload);
 
-    const res = await fetch("https://thg-1.vercel.app/api/event", {
+    /* const res = await fetch("https://thg-1.vercel.app/api/event", {*/
+    const res = await authFetch("/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -208,7 +209,6 @@ useEffect(() => {
       },
     },
 
-
     plugins: {
       datalabels: {
         display: true,
@@ -247,16 +247,13 @@ useEffect(() => {
       value,
     };
 
-    await fetch(`https://thg-1.vercel.app/api/investor/${investorId}`, {
+    /*await fetch(`https://thg-1.vercel.app/api/investor/${investorId}`, {*/
+    await authFetch(`/investor/${investorId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
   };
-
- 
-
-
 
   console.log(closingDate);
 
@@ -341,8 +338,6 @@ useEffect(() => {
                   </h6>
                 </div>
               </div>
-
-            
             </div>
           </div>
 

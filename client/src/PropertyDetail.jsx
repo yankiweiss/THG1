@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
 import Loading from "./Loading";
+import { authFetch } from "./authFetch";
 
 function PropertyDetail() {
   const [propertyData, setPropertyData] = useState([]);
@@ -16,9 +17,12 @@ function PropertyDetail() {
   let { id } = useParams();
 
   const fetchProperty = async () => {
-    await fetch(`https://thg-1.vercel.app/api/properties/${id}`)
+    /*await fetch(`https://thg-1.vercel.app/api/properties/${id}`)
       .then((res) => res.json())
-      .then((data) => setPropertyData(data));
+      .then((data) => setPropertyData(data));*/
+const res = await authFetch(`/properties/${id}`);
+const data = await res.json();
+setPropertyData(data);
 
     setLoading(true);
   };
@@ -47,11 +51,16 @@ function PropertyDetail() {
       value,
     };
 
-    await fetch(`https://thg-1.vercel.app/api/properties/${id}`, {
+    /*await fetch(`https://thg-1.vercel.app/api/properties/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-    });
+    });*/
+    await authFetch(`/properties/${id}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+});
   };
 
   console.log(propertyData);
