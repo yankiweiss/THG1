@@ -11,6 +11,7 @@ import investorRouter from "./routes/investor.js";
 import investmentsRouter from "./routes/investments.js";
 import investmentsReturnRouter from "./routes/investmentReturn.js";
 import { requireAuth, requireAdmin } from "./middleware/auth.js";
+import usersRouter from "./routes/users.js";
 
 const app = express();
 app.use(express.json());
@@ -32,6 +33,7 @@ app.use("/api/auth", authRouter);
 // Everything registered below this line requires an admin login
 app.use("/api", requireAuth, requireAdmin);
 
+app.use("/api/users", usersRouter);
 app.use("/api/properties", propertyRouter);
 app.use("/api/investmentReturn", investmentsReturnRouter);
 app.use("/api/event", eventRouter);
