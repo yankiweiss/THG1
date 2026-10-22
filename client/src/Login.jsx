@@ -32,8 +32,24 @@ function Login() {
         return;
       }
 
-      login(data);
-      navigate("/");
+      /*login(data);
+      navigate("/");*/
+login(data);
+
+if (data.user?.role === "investor") {
+  const meRes = await fetch(`${API_URL}/me/investment`, {
+    headers: { Authorization: `Bearer ${data.token}` },
+  });
+  if (meRes.ok) {
+    const me = await meRes.json();
+    navigate(`/investorDetail/${me.property_id}/${me.investor_id}`);
+  } else {
+    setError("No investment is linked to this account yet.");
+  }
+} else {
+  navigate("/me");
+}
+
     } catch {
       setError("Could not reach the server. Please try again.");
     } finally {

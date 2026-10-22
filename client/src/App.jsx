@@ -13,6 +13,7 @@ import Dashboard from "./Dashboard";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from "./AuthContext";
+import MyPage from "./MyPage";
 
 function App() {
   const { pathname } = useLocation();
@@ -28,7 +29,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
 
-          <Route element={<ProtectedRoute />}>
+          {/*<Route element={<ProtectedRoute />}>
             <Route path="/" element={<Properties />} />
             <Route path="/properties" element={<Properties />} />
             <Route path="/addDeal" element={<AddDeal />} />
@@ -41,7 +42,29 @@ function App() {
             />
             <Route path="/documents" element={<Documents />} />
             <Route path="/propertyDetail/:id" element={<PropertyDetail />} />
-          </Route>
+          </Route>*/}
+
+ {/* Any logged-in user */}
+<Route element={<ProtectedRoute />}>
+  <Route path="/me" element={<MyPage />} />
+  <Route
+    path="/investorDetail/:propertyId/:investorId"
+    element={<InvestorDetail />}
+  />
+</Route>
+
+{/* Admins only */}
+<Route element={<ProtectedRoute roles={["admin"]} />}>
+  <Route path="/" element={<Properties />} />
+  <Route path="/properties" element={<Properties />} />
+  <Route path="/addDeal" element={<AddDeal />} />
+  <Route path="/dashboard" element={<Dashboard />} />
+  <Route path="/test" element={<Test />} />
+  <Route path="/reports" element={<Reports />} />
+  <Route path="/documents" element={<Documents />} />
+  <Route path="/propertyDetail/:id" element={<PropertyDetail />} />
+</Route>
+
         </Routes>
       </div>
     </>

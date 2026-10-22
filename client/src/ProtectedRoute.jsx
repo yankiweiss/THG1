@@ -10,7 +10,8 @@ function ProtectedRoute({ roles }) {
   }
 
   if (roles && !roles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+    /*return <Navigate to="/" replace />;*/
+    return <Navigate to="/me" replace />;
   }
 
   return <Outlet />;
