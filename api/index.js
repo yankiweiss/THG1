@@ -13,6 +13,7 @@ import investmentsReturnRouter from "./routes/investmentReturn.js";
 import { requireAuth, requireAdmin, requireSelfOrAdmin } from "./middleware/auth.js";
 import usersRouter from "./routes/users.js";
 import { getInvestorByID } from "./controllers/investorController.js";
+import getMyInvestment from "./controllers/meController.js";
 
 const app = express();
 app.use(express.json());
@@ -38,6 +39,9 @@ app.get(
   requireSelfOrAdmin,
   getInvestorByID,
 );
+
+// A logged-in investor asks which page is theirs
+app.get("/api/me/investment", requireAuth, getMyInvestment);
 
 // Everything registered below this line requires an admin login
 app.use("/api", requireAuth, requireAdmin);
