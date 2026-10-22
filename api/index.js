@@ -10,8 +10,9 @@ import eventRouter from "./routes/event.js";
 import investorRouter from "./routes/investor.js";
 import investmentsRouter from "./routes/investments.js";
 import investmentsReturnRouter from "./routes/investmentReturn.js";
-import { requireAuth, requireAdmin } from "./middleware/auth.js";
+import { requireAuth, requireAdmin, requireSelfOrAdmin } from "./middleware/auth.js";
 import usersRouter from "./routes/users.js";
+import { getInvestorByID } from "./controllers/investorController.js";
 
 const app = express();
 app.use(express.json());
@@ -29,6 +30,14 @@ app.use(
 
 // Login stays open
 app.use("/api/auth", authRouter);
+
+// Investors may read their own page; admins may read any
+app.get(
+  "/api/investor/:propertyId/:investorId",
+  requireAuth,
+  requireSelfOrAdmin,
+  getInvestorByID,
+);
 
 // Everything registered below this line requires an admin login
 app.use("/api", requireAuth, requireAdmin);

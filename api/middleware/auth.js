@@ -22,3 +22,16 @@ export const requireAdmin = (req, res, next) => {
   }
   next();
 };
+
+export const requireSelfOrAdmin = (req, res, next) => {
+  if (req.user?.role === "admin") return next();
+
+  if (
+    req.user?.role === "investor" &&
+    Number(req.params.investorId) === Number(req.user.investor_id)
+  ) {
+    return next();
+  }
+
+  return res.status(403).json({ error: "Not allowed." });
+};
