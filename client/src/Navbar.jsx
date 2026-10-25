@@ -13,7 +13,8 @@ import { useAuth } from "./AuthContext";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+const { user, logout } = useAuth();
+const isAdmin = user?.role === "admin";
 
   const [activeIcon, setActiveIcon] = useState(null);
 
@@ -30,6 +31,8 @@ function Navbar() {
         </div>
 
         <div className="icons">
+           {isAdmin && (
+    <>
           <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
             <button
               className={`icon ${activeIcon === "file" ? "active" : " "} `}
@@ -74,6 +77,9 @@ function Navbar() {
               <FiPlus /> <span>Add Deal</span>
             </button>
           </Link>
+  </>
+  )}
+
           <button
   className="icon logout-btn"
   onClick={() => {
