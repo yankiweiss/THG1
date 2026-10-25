@@ -14,9 +14,12 @@ import Loading from "./Loading.jsx";
 import currency from "currency.js";
 import { IoSettingsOutline } from "react-icons/io5";
 import { authFetch } from "./authFetch";
+import { useAuth } from "./AuthContext";
 
 function InvestorDetail() {
   const now = new Date();
+  const { user } = useAuth();
+const isAdmin = user?.role === "admin";
   const year = now.getFullYear();
   const [investorData, setInvestorData] = useState();
   const [addEvent, SetAddEvent] = useState(false);
@@ -47,9 +50,6 @@ function InvestorDetail() {
 
   const fetchProperty = async () => {
     try {
-      /*const res = await fetch(
-      `https://thg-1.vercel.app/api/investor/${propertyId}/${investorId}`
-    );*/
       const res = await authFetch(`/investor/${propertyId}/${investorId}`);
 
       if (!res.ok) {
@@ -62,7 +62,6 @@ function InvestorDetail() {
 
       console.log("Investor data:", data);
 
-      //setYearlyReturn(data?.investment_returns ?? {});
       setInvestorData(data);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -100,9 +99,7 @@ function InvestorDetail() {
     : { chartData: [], totalExpected: 0 };
 
   const createUpdateYearlyReturn = async () => {
-    /*const response = await fetch(
-      `https://thg-1.vercel.app/api/investmentReturn/${propertyId}/${investorId}`,*/
-    const response = await authFetch(
+      const response = await authFetch(
       `/investmentReturn/${propertyId}/${investorId}`,
       {
         method: "POST",
@@ -136,7 +133,6 @@ function InvestorDetail() {
 
     console.log(payload);
 
-    /* const res = await fetch("https://thg-1.vercel.app/api/event", {*/
     const res = await authFetch("/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -175,17 +171,7 @@ function InvestorDetail() {
         barPercentage: 0.4, // controls width of each bar
         categoryPercentage: 0.8, // controls space between groups
       },
-      //{
-      //  label: "Missing Return",
-      //  data: [
-      //    { x: "2026-01-01", y: 500 }, // Q1
-      //    { x: "2026-04-01", y: 5000 }, // Q2
-      //    { x: "2026-07-01", y: 10000 }, // Q3
-      //    { x: "2026-10-01", y: 20000 }, // Q4
-      //  ],
-      //  backgroundColor: "#FF4A4A",
-      //  barThickness: 20,
-      //},
+
     ],
   };
 
@@ -247,7 +233,6 @@ function InvestorDetail() {
       value,
     };
 
-    /*await fetch(`https://thg-1.vercel.app/api/investor/${investorId}`, {*/
     await authFetch(`/investor/${investorId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -284,7 +269,8 @@ function InvestorDetail() {
                   id="big-font"
                   style={{ width: "95%" }}
                   className="input fw600 "
-                  value={investorData?.investor_name}
+                  value={investorData?.investor_name} 
+                  readOnly={!isAdmin}
                   onChange={(e) => handleEditField("name", e.target.value)}
                 ></input>
               </div>
@@ -352,6 +338,7 @@ function InvestorDetail() {
                 ))}
               </select>
 
+{isAdmin && (
               <button
                 className="add-investor"
                 onClick={() => SetAddEvent(true)}
@@ -360,6 +347,7 @@ function InvestorDetail() {
                 <FiPlus style={{ fontSize: "26px" }} />
                 Add Event
               </button>
+              )}
             </div>
 
             <div className="capital_events_amount">
@@ -441,7 +429,7 @@ function InvestorDetail() {
             </div>
           </div>
 
-          {addEvent && (
+          {isAdmin && addEvent && (
             <>
               {" "}
               <div className="add-form-container" ref={targetRef}>
@@ -564,12 +552,14 @@ function InvestorDetail() {
             </>
           )}
 
+{isAdmin && (
           <button
             type="button"
             onClick={() => createUpdateYearlyReturn(investorData)}
           >
             Test Investment Return API{" "}
           </button>
+          )}
         </div>
       ) : (
         <Loading />
