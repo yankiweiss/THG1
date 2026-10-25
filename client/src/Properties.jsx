@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import PropertyDetail from "./PropertyDetail";
 import { format, parseISO } from "date-fns";
 import Loading from "./Loading";
+import { authFetch } from "./authFetch";
 
 function Properties() {
   const [propertyData, setPropertyData] = useState([]);
@@ -18,7 +19,8 @@ function Properties() {
   //  console.log(baseUrl);
 
   const getAllProperties = async () => {
-    const response = await fetch("https://thg-1.vercel.app/api/properties");
+    //const response = await fetch("https://thg-1.vercel.app/api/properties");
+const response = await authFetch("/properties");
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -40,12 +42,16 @@ function Properties() {
     }
 
     try {
-      const response = await fetch(
+      /*const response = await fetch(
         `https://thg-1.vercel.app/api/properties/${id}`,
         {
           method: "DELETE",
         },
-      );
+      );*/
+const response = await authFetch(`/properties/${id}`, {
+  method: "DELETE",
+});
+
 
       const result = await response.json();
       console.log(result);

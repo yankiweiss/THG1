@@ -1,45 +1,70 @@
 import Navbar from "./Navbar";
-
 import Properties from "./Properties";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Documents from "./Documents";
 import PropertyDetail from "./PropertyDetail";
 import Reports from "./Reports";
 import InvestorDetail from "./InvestorDetail";
 import "./css/index.css";
 import AddDeal from "./AddDeal";
-import Test from './Test'
+import Test from "./Test";
 import ScrollToTop from "./ScrollToTop";
 import Dashboard from "./Dashboard";
+import Login from "./Login";
+import ProtectedRoute from "./ProtectedRoute";
+import { useAuth } from "./AuthContext";
+import MyPage from "./MyPage";
 
 function App() {
+  const { pathname } = useLocation();
+  const { user } = useAuth();
+  const showNavbar = user && pathname !== "/login";
+
   return (
     <>
       <div className="app">
-        <Navbar />
-        <ScrollToTop/>
+        {showNavbar && <Navbar />}
+        <ScrollToTop />
 
         <Routes>
-          <Route path="/" element={<Properties />} />
+          <Route path="/login" element={<Login />} />
 
-          <Route path="/properties" element={<Properties />} />
+          {/*<Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Properties />} />
+            <Route path="/properties" element={<Properties />} />
+            <Route path="/addDeal" element={<AddDeal />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route
+              path="/investorDetail/:propertyId/:investorId"
+              element={<InvestorDetail />}
+            />
+            <Route path="/documents" element={<Documents />} />
+            <Route path="/propertyDetail/:id" element={<PropertyDetail />} />
+          </Route>*/}
 
-          <Route path="/addDeal" element={<AddDeal/>} />
+ {/* Any logged-in user */}
+<Route element={<ProtectedRoute />}>
+  <Route path="/me" element={<MyPage />} />
+  <Route
+    path="/investorDetail/:propertyId/:investorId"
+    element={<InvestorDetail />}
+  />
+</Route>
 
-          <Route path="/dashboard" element={<Dashboard/>} />
+{/* Admins only */}
+<Route element={<ProtectedRoute roles={["admin"]} />}>
+  <Route path="/" element={<Properties />} />
+  <Route path="/properties" element={<Properties />} />
+  <Route path="/addDeal" element={<AddDeal />} />
+  <Route path="/dashboard" element={<Dashboard />} />
+  <Route path="/test" element={<Test />} />
+  <Route path="/reports" element={<Reports />} />
+  <Route path="/documents" element={<Documents />} />
+  <Route path="/propertyDetail/:id" element={<PropertyDetail />} />
+</Route>
 
-          <Route path="/test" element={<Test/>}/>
-
-           <Route path="/reports" element={<Reports />} />
-         
-          <Route
-            path="/investorDetail/:propertyId/:investorId"
-            element={<InvestorDetail />}
-          />
-
-          <Route path="/documents" element={<Documents />} />
-          <Route path="/propertyDetail/:id" element={<PropertyDetail />} />
-          <Route path="/reports" element={<Reports />} />
         </Routes>
       </div>
     </>

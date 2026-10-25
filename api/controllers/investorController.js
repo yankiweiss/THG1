@@ -127,9 +127,15 @@ const getAllDeals = async (req, res) => {
   }
 };
 
+const ALLOWED_INVESTOR_FIELDS = ["name"];
+
 const updateInvestorField = async (req, res) => {
   const { id } = req.params;
   const { field, value } = req.body;
+
+  if (!ALLOWED_INVESTOR_FIELDS.includes(field)) {
+  return res.status(400).json({ error: "Invalid field" });
+}
 
   try {
     const result = await dataBasePool.query(

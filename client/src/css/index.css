@@ -1,3 +1,5 @@
+/* url(index.css)     FILE   */
+
 :root {
   --sidebar-width: 250px;
 }
@@ -54,6 +56,96 @@ button {
 /*.logo_company_name {
   margin-top: 2em;
 }*/
+
+/* Login Page */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 400px;
+  max-width: 90vw;
+  background: #f0f6ff;
+  border-radius: 15px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-logo {
+  max-width: 160px;
+  margin-bottom: 15px;
+}
+
+.login-toggle {
+  display: flex;
+  width: 100%;
+  background: #e6ecff;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.login-toggle button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #2570c0;
+  cursor: pointer;
+}
+
+.login-toggle button.active {
+  background: #2570c0;
+  color: white;
+  box-shadow: 0px 2px 5px #1b3c7759;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-input {
+  height: 42px;
+  margin-bottom: 14px;
+  padding: 0 12px;
+  background: #f7faff;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  box-shadow: 0px 1px 7px #002b79b4;
+  font-size: 1rem;
+}
+
+.login-submit {
+  margin-top: 8px;
+  height: 45px;
+  color: white;
+  background: #2570c0;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+}
+
+.login-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-error {
+  color: #c62828;
+  font-weight: 600;
+  margin: 0;
+}
 .property_table {
   margin-top: 50px;
   border: 1px solid #ccc;
@@ -474,7 +566,7 @@ a:visited {
   display: flex;
   height: 146px;
   gap: 25px;
- 
+
   max-height: 146px;
 }
 .box_style {
@@ -490,7 +582,6 @@ a:visited {
 }
 
 .ID_investor_name {
-
   background-color: #f0f6ff;
   border-radius: 8px;
   display: flex;
@@ -515,7 +606,7 @@ a:visited {
   margin: auto;
   width: 70%;
 }
-.sticky{
+.sticky {
   position: sticky;
   top: 0px;
 }
@@ -527,7 +618,7 @@ a:visited {
   border-radius: 8px;
   box-shadow: 0px 3px 7px #1b3c77bf;
   justify-content: center;
- padding: 10px;
+  padding: 10px;
 }
 
 .ID-text {
@@ -841,8 +932,18 @@ table td {
 
 /* Reports Page */
 
-#reports_table{
+#reports_table {
   border-radius: 15px;
   padding: 10px;
   background-color: rgba(214, 214, 214, 0.342);
+}
+
+/* Log out button */
+.logout-btn {
+   background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
 }

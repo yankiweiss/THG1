@@ -1,0 +1,37 @@
+import jwt from "jsonwebtoken";
+
+export const requireAuth = (req, res, next) => {
+  const header = req.headers.authorization || "";
+  const token = header.startsWith("Bearer ") ? header.slice(7) : null;
+
+  if (!token) {
+    return res.status(401).json({ error: "Not logged in." });
+  }
+
+  try {
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
+    next();
+  } catch {
+    return res.status(401).json({ error: "Session expired. Please log in again." });
+  }
+};
+
+export const requireAdmin = (req, res, next) => {
+  if (req.user?.role !== "admin") {
+    return res.status(403).json({ error: "Admins only." });
+  }
+  next();
+};
+
+export const requireSelfOrAdmin = (req, res, next) => {
+  if (req.user?.role === "admin") return next();
+
+  if (
+    req.user?.role === "investor" &&
+    Number(req.params.investorId) === Number(req.user.investor_id)
+  ) {
+    return next();
+  }
+
+  return res.status(403).json({ error: "Not allowed." });
+};
