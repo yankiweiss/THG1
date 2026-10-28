@@ -203,9 +203,13 @@ table {
 }
 
 .right-side {
-  width: 80vw;
+  /*width: 80vw;
   margin-top: 50px;
   margin-left: 18vw;
+  min-height: 100vh;*/
+    margin-top: 50px;
+  margin-left: 300px;
+  margin-right: 30px;
   min-height: 100vh;
 }
 
