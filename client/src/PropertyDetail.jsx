@@ -12,7 +12,6 @@ function PropertyDetail() {
   const [propertyData, setPropertyData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [addInvestor, setAddInvestor] = useState(false);
-  
 
   let { id } = useParams();
 
@@ -20,9 +19,9 @@ function PropertyDetail() {
     /*await fetch(`https://thg-1.vercel.app/api/properties/${id}`)
       .then((res) => res.json())
       .then((data) => setPropertyData(data));*/
-const res = await authFetch(`/properties/${id}`);
-const data = await res.json();
-setPropertyData(data);
+    const res = await authFetch(`/properties/${id}`);
+    const data = await res.json();
+    setPropertyData(data);
 
     setLoading(true);
   };
@@ -57,15 +56,13 @@ setPropertyData(data);
       body: JSON.stringify(payload),
     });*/
     await authFetch(`/properties/${id}`, {
-  method: "PUT",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload),
-});
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
   };
 
   console.log(propertyData);
-
-  
 
   return (
     <>
@@ -86,18 +83,16 @@ setPropertyData(data);
               <div className="propertyDetail_flex">
                 <div
                   style={{
+                    position: "relative",
                     width: "500px",
                     maxHeight: "200px",
                     maxWidth: "500px",
                     height: "200px",
                     borderRadius: "8px",
                     boxShadow: "4px 4px 5px 1px  #1B3C77BF",
-                   
                   }}
                 >
-
                   <>
-                  
                     <img
                       src={propertyData.secure_url}
                       max-width={"100%"}
@@ -105,25 +100,34 @@ setPropertyData(data);
                       width={"475px"}
                       height={"200px"}
                       alt="property_picture"
-                      
-                  />
-                  
-                      <label htmlFor="pic_upload">
-                        <MdOutlineUploadFile
-                          fontSize={"75px"}
+                    />
+
+                    <label htmlFor="pic_upload">
+                      <MdOutlineUploadFile
+                        /*fontSize={"75px"}
                           color="#2569C0"
-                          style={{ cursor: "pointer" , zIndex: '9999', position: 'absolute', top: '15px', bottom: '50px'}}
-                        />
-                      </label>
-                      <input
-                        id="pic_upload"
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        
-                      ></input>
-                    </>
-                  
+                          style={{ cursor: "pointer" , zIndex: '9999', position: 'absolute', top: '15px', bottom: '50px'}}*/
+                        fontSize={"40px"}
+                        color="#2569C0"
+                        style={{
+                          cursor: "pointer",
+                          position: "absolute",
+                          right: "30px",
+                          bottom: "10px",
+                          padding: "6px",
+                          background: "white",
+                          borderRadius: "8px",
+                          boxShadow: "0px 2px 6px #1b3c77bf",
+                        }}
+                      />
+                    </label>
+                    <input
+                      id="pic_upload"
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                    ></input>
+                  </>
                 </div>
 
                 <div className="propertyDetail_fin_flex">
