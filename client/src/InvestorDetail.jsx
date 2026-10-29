@@ -98,7 +98,7 @@ function InvestorDetail() {
       )
     : { chartData: [], totalExpected: 0 };
 
-  const createUpdateYearlyReturn = async () => {
+  /*const createUpdateYearlyReturn = async () => {
     const response = await authFetch(
       `/investmentReturn/${propertyId}/${investorId}`,
       {
@@ -116,7 +116,7 @@ function InvestorDetail() {
     const result = await response.json();
 
     console.log(result);
-  };
+  };*/
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
@@ -551,14 +551,14 @@ function InvestorDetail() {
             </>
           )}
 
-          {isAdmin && (
+          {/*{isAdmin && (
             <button
               type="button"
               onClick={() => createUpdateYearlyReturn(investorData)}
             >
               Test Investment Return API{" "}
             </button>
-          )}
+          )}*/}
         </div>
       ) : (
         <Loading />
