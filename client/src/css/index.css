@@ -1002,3 +1002,38 @@ table td {
 .ID-investor-details .column-flex > h6:last-child {
   font-size: 0.85rem;
 }
+
+/* Investor page: chart on top, events table below */
+.capital_breakdown {
+  height: auto;
+  min-height: 0;
+  max-width: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 30px;
+}
+
+.capital_events_amount {
+  flex-direction: column;
+  height: auto;
+  gap: 25px;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+
+.capital_events_amount > h4 {
+  display: none;
+}
+
+.quarterly_breakdown {
+  width: 100%;
+  height: 420px;
+  box-sizing: border-box;
+}
+
+.event_table {
+  width: 100%;
+  min-height: 0;
+  max-height: 360px;
+  box-sizing: border-box;
+}

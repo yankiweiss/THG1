@@ -203,7 +203,7 @@ function InvestorDetail() {
         formatter: (value) => `$${value.y.toLocaleString()}`,
         font: {
           weight: "bold",
-          size: 12,
+          size: 10,
         },
       },
       legend: {
