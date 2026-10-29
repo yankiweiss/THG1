@@ -53,10 +53,6 @@ button {
     -1px 1px 2px 1px #1b3d7770;
 }
 
-/*.logo_company_name {
-  margin-top: 2em;
-}*/
-
 /* Login Page */
 .login-page {
   min-height: 100vh;
@@ -203,11 +199,7 @@ table {
 }
 
 .right-side {
-  /*width: 80vw;
   margin-top: 50px;
-  margin-left: 18vw;
-  min-height: 100vh;*/
-    margin-top: 50px;
   margin-left: 300px;
   margin-right: 30px;
   min-height: 100vh;
@@ -473,16 +465,6 @@ table {
   cursor: pointer;
 }
 
-/*.investors_section:hover > :nth-child(1) ~ *{
-  
-  border-left: 1px solid  black;
-  border-top: 1px solid black;
-  padding: 3px;
- cursor: pointer;
- padding-left: 75px;
-
-}*/
-
 .item:nth-child(1) {
   flex-grow: 2;
   text-align: center;
@@ -495,6 +477,41 @@ table {
 .investor_details {
   display: flex;
   gap: 25px;
+}
+
+/* Investor page: top row stays on one line and shrinks to fit */
+.top-flex {
+  height: auto;
+  max-height: none;
+  min-height: 146px;
+  flex-wrap: nowrap;
+}
+
+.top-flex > img {
+  flex: 0 1 300px;
+  min-width: 180px;
+  max-width: 300px;
+  width: auto;
+  height: 146px;
+  object-fit: cover;
+}
+
+.ID_investor_name {
+  flex: 0 1 260px;
+  min-width: 200px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+.ID_investor_name #big-font {
+  width: 100% !important;
+  font-size: 1.2rem;
+}
+
+.ID-investor-details {
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .propertyDetail_flex {
@@ -944,10 +961,44 @@ table td {
 
 /* Log out button */
 .logout-btn {
-   background-color: red;
+  background-color: red;
   color: white;
   border: none;
   padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
+}
+/* Investor page: stat boxes stay on one row and shrink to fit */
+.top-flex > img {
+  flex: 0 1 240px;
+  min-width: 140px;
+}
+
+.ID_investor_name {
+  flex: 0 1 230px;
+  min-width: 180px;
+}
+
+.ID-investor-details {
+  flex: 1 1 0;
+  min-width: 0;
+  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 8px;
+}
+
+.ID-investor-details .column-flex {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ID-investor-details .ID-text {
+  padding: 8px 4px;
+  font-size: 0.7rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ID-investor-details .column-flex > h6:last-child {
+  font-size: 0.85rem;
 }
