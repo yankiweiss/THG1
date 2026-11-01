@@ -3,9 +3,7 @@ import "./css/index.css";
 import { useEffect } from "react";
 import { authFetch } from "./authFetch";
 
-import {
-  AllDealsReturns
-} from "./utils/CalculatingReturns.js";
+import { AllDealsReturns } from "./utils/CalculatingReturns.js";
 
 function Reports() {
   const [dealData, setDealData] = useState();
@@ -24,7 +22,7 @@ function Reports() {
     getAllDeals();
   }, []);
 
- AllDealsReturns(dealData);
+  AllDealsReturns(dealData);
 
   return (
     <>
@@ -39,7 +37,7 @@ function Reports() {
           <label>Search Bases On</label>
           <select>
             <option>Actual Return</option>
-            <option>Expected Return</option>
+            <option>Preferre Return</option>
           </select>
 
           <select>
@@ -49,7 +47,7 @@ function Reports() {
 
           <select>
             <option>Actual Return</option>
-            <option>Expected Return</option>
+            <option>Preferre Return</option>
           </select>
 
           {/* i want they should be able to search via investor and property */}
@@ -62,7 +60,7 @@ function Reports() {
                 <th>Property Name:</th>
                 <th>Investor Name:</th>
                 <th>Closing Date:</th>
-                <th>Expected Return:</th>
+                <th>Preferred Return:</th>
                 <th>Actual Return:</th>
               </tr>
             </thead>

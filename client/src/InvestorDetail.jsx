@@ -165,7 +165,7 @@ function InvestorDetail() {
       },
 
       {
-        label: "Expected Return",
+        label: "Preferred Return",
         data: expectedData.expectedReturnData,
         backgroundColor: "#00026d",
         barPercentage: 0.4, // controls width of each bar
@@ -309,7 +309,7 @@ function InvestorDetail() {
                 </div>
                 <div className="column-flex">
                   <h6 className="ID-text fw600">
-                    EXPECTED <br></br>RETURN
+                    PREFERRED <br></br>RETURN
                   </h6>
                   <h6 className="fw600">
                     {formatNumbers(
