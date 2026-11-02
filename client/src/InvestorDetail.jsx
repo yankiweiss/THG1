@@ -19,7 +19,7 @@ import { useAuth } from "./AuthContext";
 function InvestorDetail() {
   const now = new Date();
   const { user } = useAuth();
-const isAdmin = user?.role === "admin";
+  const isAdmin = user?.role === "admin";
   const year = now.getFullYear();
   const [investorData, setInvestorData] = useState();
   const [addEvent, SetAddEvent] = useState(false);
@@ -98,8 +98,8 @@ const isAdmin = user?.role === "admin";
       )
     : { chartData: [], totalExpected: 0 };
 
-  const createUpdateYearlyReturn = async () => {
-      const response = await authFetch(
+  /*const createUpdateYearlyReturn = async () => {
+    const response = await authFetch(
       `/investmentReturn/${propertyId}/${investorId}`,
       {
         method: "POST",
@@ -116,7 +116,7 @@ const isAdmin = user?.role === "admin";
     const result = await response.json();
 
     console.log(result);
-  };
+  };*/
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
@@ -165,13 +165,12 @@ const isAdmin = user?.role === "admin";
       },
 
       {
-        label: "Expected Return",
+        label: "Preferred Return",
         data: expectedData.expectedReturnData,
         backgroundColor: "#00026d",
         barPercentage: 0.4, // controls width of each bar
         categoryPercentage: 0.8, // controls space between groups
       },
-
     ],
   };
 
@@ -204,7 +203,7 @@ const isAdmin = user?.role === "admin";
         formatter: (value) => `$${value.y.toLocaleString()}`,
         font: {
           weight: "bold",
-          size: 12,
+          size: 10,
         },
       },
       legend: {
@@ -251,7 +250,7 @@ const isAdmin = user?.role === "admin";
 
             <div className="top-flex">
               <img
-                src={investorData?.image_url}
+                src={investorData?.secure_url}
                 width={"300px"}
                 height={"146px"}
                 style={{
@@ -269,7 +268,7 @@ const isAdmin = user?.role === "admin";
                   id="big-font"
                   style={{ width: "95%" }}
                   className="input fw600 "
-                  value={investorData?.investor_name} 
+                  value={investorData?.investor_name}
                   readOnly={!isAdmin}
                   onChange={(e) => handleEditField("name", e.target.value)}
                 ></input>
@@ -310,7 +309,7 @@ const isAdmin = user?.role === "admin";
                 </div>
                 <div className="column-flex">
                   <h6 className="ID-text fw600">
-                    EXPECTED <br></br>RETURN
+                    PREFERRED <br></br>RETURN
                   </h6>
                   <h6 className="fw600">
                     {formatNumbers(
@@ -338,15 +337,15 @@ const isAdmin = user?.role === "admin";
                 ))}
               </select>
 
-{isAdmin && (
-              <button
-                className="add-investor"
-                onClick={() => SetAddEvent(true)}
-              >
-                {" "}
-                <FiPlus style={{ fontSize: "26px" }} />
-                Add Event
-              </button>
+              {isAdmin && (
+                <button
+                  className="add-investor"
+                  onClick={() => SetAddEvent(true)}
+                >
+                  {" "}
+                  <FiPlus style={{ fontSize: "26px" }} />
+                  Add Event
+                </button>
               )}
             </div>
 
@@ -552,14 +551,14 @@ const isAdmin = user?.role === "admin";
             </>
           )}
 
-{isAdmin && (
-          <button
-            type="button"
-            onClick={() => createUpdateYearlyReturn(investorData)}
-          >
-            Test Investment Return API{" "}
-          </button>
-          )}
+          {/*{isAdmin && (
+            <button
+              type="button"
+              onClick={() => createUpdateYearlyReturn(investorData)}
+            >
+              Test Investment Return API{" "}
+            </button>
+          )}*/}
         </div>
       ) : (
         <Loading />

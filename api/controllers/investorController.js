@@ -37,6 +37,7 @@ const getInvestorByID = async (req, res) => {
   investments.invested_amount,
   p.property_name,
   p.purchase_price,
+  p.secure_url,
   to_char(p.closing_date, 'YYYY-MM-DD') AS closing_date,
 
   COALESCE(
@@ -75,6 +76,7 @@ const getInvestorByID = async (req, res) => {
   investments.invested_amount,
   p.property_name,
   p.purchase_price,
+  p.secure_url,
   p.closing_date::date;
   `;
 

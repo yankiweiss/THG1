@@ -53,10 +53,6 @@ button {
     -1px 1px 2px 1px #1b3d7770;
 }
 
-/*.logo_company_name {
-  margin-top: 2em;
-}*/
-
 /* Login Page */
 .login-page {
   min-height: 100vh;
@@ -203,9 +199,9 @@ table {
 }
 
 .right-side {
-  width: 80vw;
   margin-top: 50px;
-  margin-left: 18vw;
+  margin-left: 300px;
+  margin-right: 30px;
   min-height: 100vh;
 }
 
@@ -469,16 +465,6 @@ table {
   cursor: pointer;
 }
 
-/*.investors_section:hover > :nth-child(1) ~ *{
-  
-  border-left: 1px solid  black;
-  border-top: 1px solid black;
-  padding: 3px;
- cursor: pointer;
- padding-left: 75px;
-
-}*/
-
 .item:nth-child(1) {
   flex-grow: 2;
   text-align: center;
@@ -491,6 +477,41 @@ table {
 .investor_details {
   display: flex;
   gap: 25px;
+}
+
+/* Investor page: top row stays on one line and shrinks to fit */
+.top-flex {
+  height: auto;
+  max-height: none;
+  min-height: 146px;
+  flex-wrap: nowrap;
+}
+
+.top-flex > img {
+  flex: 0 1 300px;
+  min-width: 180px;
+  max-width: 300px;
+  width: auto;
+  height: 146px;
+  object-fit: cover;
+}
+
+.ID_investor_name {
+  flex: 0 1 260px;
+  min-width: 200px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+.ID_investor_name #big-font {
+  width: 100% !important;
+  font-size: 1.2rem;
+}
+
+.ID-investor-details {
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .propertyDetail_flex {
@@ -940,10 +961,218 @@ table td {
 
 /* Log out button */
 .logout-btn {
-   background-color: red;
+  background-color: red;
   color: white;
   border: none;
   padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
+}
+/* Investor page: stat boxes stay on one row and shrink to fit */
+.top-flex > img {
+  flex: 0 1 240px;
+  min-width: 140px;
+}
+
+.ID_investor_name {
+  flex: 0 1 230px;
+  min-width: 180px;
+}
+
+.ID-investor-details {
+  flex: 1 1 0;
+  min-width: 0;
+  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 8px;
+}
+
+.ID-investor-details .column-flex {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ID-investor-details .ID-text {
+  padding: 8px 4px;
+  font-size: 0.7rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ID-investor-details .column-flex > h6:last-child {
+  font-size: 0.85rem;
+}
+
+/* Investor page: chart on top, events table below */
+.capital_breakdown {
+  height: auto;
+  min-height: 0;
+  max-width: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 30px;
+}
+
+.capital_events_amount {
+  flex-direction: column;
+  height: auto;
+  gap: 25px;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+
+.capital_events_amount > h4 {
+  display: none;
+}
+
+.quarterly_breakdown {
+  width: 100%;
+  height: 420px;
+  box-sizing: border-box;
+}
+
+.event_table {
+  width: 100%;
+  min-height: 0;
+  max-height: 360px;
+  box-sizing: border-box;
+}
+
+/* Property detail page */
+.main-flex {
+  height: auto;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.property-content {
+  flex: 0 1 640px;
+  width: auto;
+  max-width: 100%;
+}
+
+.PD-in-sec {
+  flex: 1 1 480px;
+  width: auto;
+  max-width: 775px;
+}
+
+.add-investor-section {
+  margin-top: 40px;
+  padding-bottom: 60px;
+}
+
+.pd-picture {
+  position: relative;
+  flex: 0 1 500px;
+  max-width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 5px 1px #1b3c77bf;
+  overflow: hidden;
+  background: #e6ecff;
+}
+
+.pd-picture-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pd-picture-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7f9dc9;
+  font-weight: 600;
+}
+
+.pd-picture-actions {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.pd-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: white;
+  color: #2570c0;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px #1b3c77bf;
+}
+
+.pd-btn:hover {
+  background: #e6ecff;
+}
+
+.pd-btn-danger {
+  color: #c62828;
+}
+
+.pd-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pd-error {
+  color: #c62828;
+  font-weight: 600;
+  margin: 8px 0 0;
+  width: 100%;
+}
+
+.add-investor-form {
+  margin-top: 25px;
+  padding: 25px;
+  max-width: 1100px;
+  background: #f0f6ff;
+  border-radius: 10px;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.add-investor-form .deal-input {
+  width: 260px;
+  margin-bottom: 0;
+}
+
+/* Investors overview: hover must not change layout */
+.investor_details {
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.15s, box-shadow 0.15s;
+}
+
+.investors_section:hover .investor_details {
+  margin: 0;
+  padding: 10px 20px;
+  background-color: white;
+  box-shadow: 0px 3px 7px #1b3c77bf;
+  cursor: pointer;
+}
+
+.add-investor-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.add-investor-cancel {
+  background: white;
+  color: #2570c0;
+  border: 1.5px solid #2570c0;
+  box-shadow: none;
 }
