@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
 import Loading from "./Loading";
 import { authFetch } from "./authFetch";
+import { notifyDataChanged } from "./utils/reportRefresh";
+
 
 const CLOUDINARY_URL =
   "https://api.cloudinary.com/v1_1/dhwtnj8eb/image/upload";
@@ -145,7 +147,8 @@ function PropertyDetail() {
       });
       if (!res.ok) throw new Error("Add failed.");
 
-      await fetchProperty();
+       await fetchProperty();
+      notifyDataChanged();
       form.reset();
       setShowAddInvestor(false);
     } catch {

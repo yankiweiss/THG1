@@ -15,6 +15,8 @@ import currency from "currency.js";
 import { IoSettingsOutline } from "react-icons/io5";
 import { authFetch } from "./authFetch";
 import { useAuth } from "./AuthContext";
+import { notifyDataChanged } from "./utils/reportRefresh";
+
 
 function InvestorDetail() {
   const now = new Date();
@@ -146,6 +148,7 @@ function InvestorDetail() {
       events: [...prev.events, data],
     }));
 
+    notifyDataChanged();
     SetAddEvent(false);
     setEventType("Investment");
   };

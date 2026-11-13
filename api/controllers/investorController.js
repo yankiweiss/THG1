@@ -98,34 +98,44 @@ const getInvestorByID = async (req, res) => {
 
 const getAllDeals = async (req, res) => {
   const getAllInvestments = `
-  
-  SELECT
-  inv.invested_amount,
-  inv.perf_return,
-  inv.property_id,
-  inv.investor_id,
-  i.name AS investor_name,
-  to_char(p.closing_date, 'YYYY-MM-DD') AS closing_date,
-  p.property_name
-  
-
-  FROM investments inv
-
-  INNER JOIN properties p 
-  ON inv.property_id = p.id
-  
-  INNER JOIN investors i
-  ON inv.investor_id = i.id`;
-
+    SELECT
+      inv.id AS investment_id,
+      inv.invested_amount,
+      inv.perf_return,
+      inv.property_id,
+      inv.investor_id,
+      i.name AS investor_name,
+      to_char(p.closing_date, 'YYYY-MM-DD') AS closing_date,
+      p.property_name,
+      COALESCE(
+        json_agg(
+          json_build_object(
+            'id', e.id,
+            'event_date', to_char(e.event_date, 'YYYY-MM-DD'),
+            'event_amount', e.event_amount,
+            'event_type', e.event_type,
+            'notes', e.notes,
+            'from', to_char(e."from", 'YYYY-MM-DD'),
+            'to', to_char(e."to", 'YYYY-MM-DD')
+          )
+          ORDER BY e.event_date
+        ) FILTER (WHERE e.id IS NOT NULL),
+        '[]'
+      ) AS events
+    FROM investments inv
+    INNER JOIN properties p ON inv.property_id = p.id
+    INNER JOIN investors i ON inv.investor_id = i.id
+    LEFT JOIN events e ON e.investment_id = inv.id
+    GROUP BY inv.id, inv.invested_amount, inv.perf_return, inv.property_id,
+             inv.investor_id, i.name, p.closing_date, p.property_name
+    ORDER BY p.property_name, i.name`;
+ 
   try {
-    const result = await dataBasePool.query
-    (
-      getAllInvestments
-    )
-
-    return res.json(result.rows)
+    const result = await dataBasePool.query(getAllInvestments);
+    return res.json(result.rows);
   } catch (error) {
-    
+    console.error("DATABASE ERROR:", error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 

@@ -6,6 +6,8 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { format, parseISO, isValid } from "date-fns";
 import { authFetch } from "./authFetch";
+import { notifyDataChanged } from "./utils/reportRefresh";
+
 
 function AddDeal() {
   const navigate = useNavigate();
@@ -115,6 +117,7 @@ function AddDeal() {
     imageHolder.current.src = "";
 
     formRef.current.reset();
+    notifyDataChanged();
     navigate("/");
   };
 
