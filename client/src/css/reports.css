@@ -1,29 +1,64 @@
 /* client/src/css/reports.css */
 .rp-page { padding: 24px 28px 48px; max-width: 100%; box-sizing: border-box; }
 .rp-title { font-weight: 600; margin: 0 0 16px; }
- 
+
 .rp-tabs { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
 .rp-tab {
   padding: 10px 22px; border-radius: 8px; border: 1px solid #2570c0;
   background: #fff; color: #2570c0; font-weight: 600; cursor: pointer;
 }
 .rp-tab-on { background: #2570c0; color: #fff; }
- 
+
+/* ---------- filter ---------- */
 .rp-filter {
   background: #fff; border: 1px solid #e3e8ef; border-radius: 10px;
   padding: 14px 16px; margin-bottom: 20px;
 }
 .rp-filter-head { display: flex; justify-content: space-between; margin-bottom: 10px; }
 .rp-link { background: none; border: 0; color: #2570c0; cursor: pointer; font-weight: 600; }
-.rp-filter-grid {
-  display: grid; gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+
+.rp-line { display: flex; flex-wrap: wrap; gap: 12px 14px; align-items: flex-end; }
+.rp-line + .rp-line { margin-top: 12px; }
+
+.rp-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.rp-label { font-size: 13px; font-weight: 600; }
+.rp-f-main { width: 230px; }
+.rp-f-small { width: 110px; }
+.rp-f-wide { width: 300px; }
+.rp-f-date { width: auto; min-width: 150px; }
+
+.rp-date { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+.rp-date select, .rp-date input {
+  padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;
+  background: #fff; height: 37px; box-sizing: border-box;
 }
-.rp-filter-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
-.rp-filter-grid select, .rp-filter-grid input {
-  padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; font-weight: 400;
+.rp-date-part { display: flex; flex-direction: column; gap: 2px; font-size: 12px; font-weight: 600; }
+
+/* multi select */
+.rp-ms { position: relative; }
+.rp-ms-btn {
+  width: 100%; height: 37px; box-sizing: border-box; display: flex;
+  align-items: center; justify-content: space-between; gap: 6px;
+  padding: 0 8px; border: 1px solid #cbd5e1; border-radius: 6px;
+  background: #fff; font-size: 14px; cursor: pointer; text-align: left;
 }
- 
+.rp-ms-all { border-bottom: 1px solid #eef1f5; font-weight: 600; }
+.rp-ms-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rp-ms-caret { color: #64748b; font-size: 12px; }
+.rp-ms-panel {
+  position: absolute; top: calc(100% + 2px); left: 0; z-index: 30;
+  min-width: 100%; max-height: 240px; overflow-y: auto; background: #fff;
+  border: 1px solid #cbd5e1; border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15); padding: 4px 0;
+}
+.rp-ms-row {
+  display: flex; align-items: center; gap: 8px; padding: 6px 10px;
+  font-size: 14px; cursor: pointer; white-space: nowrap;
+}
+.rp-ms-row:hover { background: #f3f6fb; }
+.rp-ms-none { padding: 8px 10px; color: #64748b; font-size: 13px; }
+
+/* ---------- cards + tables ---------- */
 .rp-card {
   background: #fff; border: 1px solid #e3e8ef; border-radius: 10px;
   padding: 16px; margin-bottom: 24px; min-width: 0;
@@ -32,19 +67,41 @@
 .rp-muted { color: #64748b; font-size: 13px; font-weight: 400; }
 .rp-investor { margin-top: 18px; min-width: 0; }
 .rp-investor-head { display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px; }
- 
+
 .rp-scroll { overflow-x: auto; max-width: 100%; border: 1px solid #e3e8ef; border-radius: 8px; }
-.rp-table { border-collapse: collapse; width: max-content; min-width: 100%; font-size: 13px; }
+
+/* every column is only as wide as its numbers / dates; headers wrap */
+.rp-table { border-collapse: collapse; width: auto; font-size: 12.5px; }
 .rp-table th, .rp-table td {
-  padding: 8px 10px; border-bottom: 1px solid #eef1f5; border-right: 1px solid #eef1f5;
-  text-align: right; white-space: nowrap;
+  padding: 5px 7px; border-bottom: 1px solid #eef1f5; border-right: 1px solid #eef1f5;
+  text-align: right; white-space: nowrap; width: 1%;
 }
-.rp-table th { background: #f3f6fb; font-weight: 600; text-align: center; white-space: normal; min-width: 96px; }
+.rp-table th {
+  background: #f3f6fb; font-weight: 600; text-align: center; white-space: normal;
+  line-height: 1.2; vertical-align: bottom; font-size: 12px;
+}
 .rp-table th.rp-q { background: #2570c0; color: #fff; }
 .rp-table td:first-child, .rp-table th:first-child { text-align: left; }
-.rp-sticky { position: sticky; left: 0; background: #fff; z-index: 1; min-width: 60px; }
+/* one date range per line, never broken in the middle */
+.rp-table td.rp-dates { white-space: pre; text-align: center; }
+
+/* Q1 Q2 Q3 Q4 bars: slim, whatever other page styles say */
+.rp-page .rp-table thead th.rp-q {
+  height: 22px !important;
+  padding: 2px 6px !important;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+  font-size: 12px !important;
+}
+.rp-page .rp-table thead tr:first-child { height: auto !important; }
+/* keep every header / cell compact even if another page style sets a height */
+.rp-page .rp-table th, .rp-page .rp-table td {
+  height: auto !important;
+  padding: 4px 6px !important;
+}
+.rp-sticky { position: sticky; left: 0; background: #fff; z-index: 1; }
 .rp-table th.rp-sticky { background: #f3f6fb; z-index: 2; }
-.rp-na { text-align: center !important; color: #94a3b8; }
+.rp-na { text-align: center !important; color: #94a3b8; width: auto !important; }
 .rp-pos { color: #15803d; font-weight: 600; }
 .rp-neg { color: #b91c1c; font-weight: 600; }
 .rp-empty { color: #64748b; padding: 24px 0; }
