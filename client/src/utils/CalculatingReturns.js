@@ -283,16 +283,14 @@ export const toDateRows = (investments) => {
       const after = e.event_type === "Return to Capital" ? addDays(day, 1) : day;
       const balanceAfter = investmentToDate(inv.invested_amount, inv.events, after);
 
-      let actualToDate = null;
-      if (isRet) {
-        actualToDate = (inv.events || [])
-          .filter((x) => {
-            if (x.event_type !== "Return") return false;
-            const xd = evDate(x);
-            return xd && xd <= day;
-          })
-          .reduce((a, x) => a + num(x.event_amount), 0);
-      }
+      // total Actual Returns paid up to (and including) this row's date
+      const actualToDate = (inv.events || [])
+        .filter((x) => {
+          if (x.event_type !== "Return") return false;
+          const xd = evDate(x);
+          return xd && xd <= day;
+        })
+        .reduce((a, x) => a + num(x.event_amount), 0);
 
       rows.push({
         key: `${inv.investment_id}-${e.id ?? e.event_date}-${e.event_type}`,
@@ -307,6 +305,7 @@ export const toDateRows = (investments) => {
         investmentId: inv.investment_id,
         initial: num(inv.invested_amount),
         preferredToDate: prefToDate,
+        actualToDate,
         amount: num(e.event_amount),
         actualVsPreferred: isRet ? actualToDate - prefToDate : null,
         balanceToDate: balanceAfter,

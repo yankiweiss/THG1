@@ -23,12 +23,22 @@ const dates = (list) => (list?.length ? list.map(dateText).join("\n") : "—");
 // jan-1-'25
 const shortDate = (d) =>
   `${format(d, "MMM").toLowerCase()}-${d.getDate()}-'${format(d, "yy")}`;
-// jan-1-'25 / mar-31-'25   (one date if From and To are the same day)
-const spanText = (s) =>
-  s.from.getTime() === s.to.getTime()
-    ? shortDate(s.from)
-    : `${shortDate(s.from)} / ${shortDate(s.to)}`;
-const spans = (list) => (list?.length ? list.map(spanText).join("\n") : "—");
+// jan-1-'25 /  (line 1)   mar-31-'25  (line 2) - one date if From = To
+function SpanText({ span }) {
+  if (span.from.getTime() === span.to.getTime()) {
+    return <div className="rp-span">{shortDate(span.from)}</div>;
+  }
+  return (
+    <div className="rp-span">
+      {shortDate(span.from)} /<br />
+      {shortDate(span.to)}
+    </div>
+  );
+}
+const spans = (list) =>
+  list?.length
+    ? list.map((s, i) => <SpanText key={i} span={s} />)
+    : "—";
 
 const EVENT_OPTIONS = [
   { value: "Investment", label: "Investment" },
@@ -647,12 +657,12 @@ function ToDateReport({ data, range, eventSel, compare }) {
               <th>Event Date</th>
               <th>Investment / ID #</th>
               <th>Investment Date</th>
-              <th>Event</th>
-              <th>Investor</th>
-              <th>Investor ID #</th>
+              <th>Investor / ID #</th>
               <th>Initial Investment</th>
               <th>Preferred Amount to Date</th>
+              <th>Event</th>
               <th>Amount</th>
+              <th>Actual Amount to Date</th>
               <th>If Actual Return: Actual vs Preferred</th>
               <th>Investment Amount to Date</th>
               <th>If R.T.C./C.C.: Preferred Going Forward (per year)</th>
@@ -667,17 +677,21 @@ function ToDateReport({ data, range, eventSel, compare }) {
                 r.eventType === "Investment";
               return (
                 <tr key={r.key}>
-                  <td>{r.span ? spanText(r.span) : dateText(r.date)}</td>
+                  <td className="rp-dates">
+                    {r.span ? <SpanText span={r.span} /> : dateText(r.date)}
+                  </td>
                   <td>
                     {r.propertyName} · #{r.propertyId}
                   </td>
                   <td>{dateText(r.closingDate)}</td>
-                  <td>{label(r.eventType)}</td>
-                  <td>{r.investorName}</td>
-                  <td>{r.investorId}</td>
+                  <td>
+                    {r.investorName} · #{r.investorId}
+                  </td>
                   <td>{money(r.initial)}</td>
                   <td>{money(r.preferredToDate)}</td>
+                  <td>{label(r.eventType)}</td>
                   <td className="fw600">{money(r.amount)}</td>
+                  <td>{money(r.actualToDate)}</td>
                   <DiffCell diff={r.actualVsPreferred} />
                   <td>{money(r.balanceToDate)}</td>
                   <td>{cap ? money(r.preferredPerYear) : "—"}</td>
